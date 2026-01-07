@@ -68,9 +68,11 @@ const Navbar = () => {
             className={[
                 "w-full z-50",
                 isHome ? "absolute top-0 left-0" : "sticky top-0",
-                isSolid
-                    ? "bg-white/95 backdrop-blur border-b border-gray-200"
-                    : "bg-transparent",
+                isHome
+                    ? (scrolled
+                        ? "bg-black/35 backdrop-blur border-b border-white/10"
+                        : "bg-transparent")
+                    : "bg-white/95 backdrop-blur border-b border-gray-200",
             ].join(" ")}
         >
             <div className="w-full px-5 sm:px-8 xl:px-14 h-20 flex items-center justify-between">
