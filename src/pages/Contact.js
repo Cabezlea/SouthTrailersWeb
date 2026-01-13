@@ -7,9 +7,9 @@ const Field = ({ label, required, right, error, children }) => {
     return (
         <div className="block">
             <div className="flex items-end justify-between gap-3">
-                <span className="text-sm font-semibold text-slate-900">
-                    {label} {required ? <span className="text-green-700">*</span> : null}
-                </span>
+        <span className="text-sm font-semibold text-slate-900">
+          {label} {required ? <span className="text-green-700">*</span> : null}
+        </span>
                 {right ? <span className="text-xs text-slate-500">{right}</span> : null}
             </div>
 
@@ -261,16 +261,9 @@ const Contact = () => {
                         <div className="lg:col-span-5 h-full">
                             <div className={`${cardBase} h-full p-6 sm:p-7 flex flex-col`}>
                                 <p className="text-lg font-extrabold text-slate-900">Direct contact</p>
-                                <p className="mt-2 text-slate-600">
-                                    {intent === "talk"
-                                        ? "Call now for fast coordination."
-                                        : intent === "general"
-                                            ? "Send a message and we’ll point you in the right direction."
-                                            : "Send details and we’ll respond with pricing + next steps."}
-                                </p>
 
                                 {/* phone + email */}
-                                <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                <div className="mt-7 grid grid-cols-1 sm:grid-cols-2 gap-4">
                                     <a
                                         href={contact.phoneHref}
                                         className="rounded-xl border border-slate-200 bg-white p-4 hover:bg-slate-50 transition shadow-sm"
@@ -294,13 +287,13 @@ const Contact = () => {
                                 </div>
 
                                 {/* base line */}
-                                <div className="mt-5 rounded-xl border border-slate-200 bg-white p-4">
+                                <div className="mt-6 rounded-xl border border-slate-200 bg-white p-4">
                                     <p className="text-xs font-semibold text-slate-500">{contact.baseTitle}</p>
                                     <p className="mt-1 text-sm text-slate-600">{contact.baseLine}</p>
                                 </div>
 
                                 {/* hours */}
-                                <div className="mt-8">
+                                <div className="mt-9">
                                     <p className="text-sm font-extrabold text-slate-900">Hours</p>
                                     <div className="mt-3 rounded-xl border border-slate-200 bg-white overflow-hidden">
                                         <div className="divide-y divide-slate-200">
@@ -315,7 +308,7 @@ const Contact = () => {
                                 </div>
 
                                 {/* bottom CTA aligned sizing */}
-                                <div className="mt-auto pt-8">
+                                <div className="mt-auto pt-9">
                                     <a
                                         href={contact.phoneHref}
                                         className="inline-flex w-full justify-center items-center px-6 py-3 rounded-xl bg-green-600 text-white font-semibold hover:bg-green-700 transition shadow-sm"
@@ -333,9 +326,7 @@ const Contact = () => {
                             <div className={`${cardBase} h-full`}>
                                 <div className="p-6 sm:p-8">
                                     <div>
-                                        <p className="text-2xl sm:text-3xl font-extrabold tracking-tight text-slate-900">
-                                            {formTitle}
-                                        </p>
+                                        <p className="text-2xl sm:text-3xl font-extrabold tracking-tight text-slate-900">{formTitle}</p>
                                         <p className="mt-2 text-slate-600">{formSub}</p>
                                     </div>
 
@@ -401,14 +392,15 @@ const Contact = () => {
                                         </Field>
 
                                         <div className="sm:col-span-2">
-                                            <Field label="Message" right="details + measurements help" error={errors.message}>
-                                                <textarea
-                                                    className={`${inputBase} min-h-[150px] resize-y`}
-                                                    name="message"
-                                                    value={form.message}
-                                                    onChange={onChange}
-                                                    placeholder="Example: 48' curtain. Damage near rear. Rollers bind. Need parts + labor estimate."
-                                                />
+                                            {/* removed the "details + measurements help" right text */}
+                                            <Field label="Message" error={errors.message}>
+                        <textarea
+                            className={`${inputBase} min-h-[150px] resize-y`}
+                            name="message"
+                            value={form.message}
+                            onChange={onChange}
+                            placeholder="Example: 48' curtain. Damage near rear. Rollers bind. Need parts + labor estimate."
+                        />
                                             </Field>
 
                                             <div className="mt-4 rounded-xl border border-slate-200 bg-white p-4">
