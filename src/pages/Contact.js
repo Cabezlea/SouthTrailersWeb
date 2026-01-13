@@ -1,8 +1,28 @@
-import { useMemo, useRef, useState } from "react";
+// src/pages/Contact.js
 import { Link } from "react-router-dom";
+import { useMemo, useRef, useState, useCallback } from "react";
+
+/** Keep this OUTSIDE Contact so inputs don't get remounted / lose focus */
+const Field = ({ label, required, right, error, children }) => {
+    return (
+        <div className="block">
+            <div className="flex items-end justify-between gap-3">
+                <span className="text-sm font-semibold text-slate-900">
+                    {label} {required ? <span className="text-green-700">*</span> : null}
+                </span>
+                {right ? <span className="text-xs text-slate-500">{right}</span> : null}
+            </div>
+
+            <div className="mt-2">{children}</div>
+
+            {error ? <p className="mt-2 text-xs font-semibold text-red-600">{error}</p> : null}
+        </div>
+    );
+};
 
 const Contact = () => {
     const PAGE_CONTAINER = "max-w-7xl mx-auto px-5 sm:px-8 xl:px-14";
+
     const cardBase = "rounded-2xl border border-slate-200 bg-white shadow-sm";
     const inputBase =
         "w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-slate-900 placeholder:text-slate-400 shadow-sm focus:outline-none focus:ring-2 focus:ring-green-500/40 focus:border-green-500/40";
@@ -28,6 +48,8 @@ const Contact = () => {
 
     const [intent, setIntent] = useState("quote"); // quote | talk | general
     const [toast, setToast] = useState(null);
+    const toastTimerRef = useRef(null);
+
     const [errors, setErrors] = useState({});
 
     const [form, setForm] = useState({
@@ -42,69 +64,77 @@ const Contact = () => {
 
     const formTopRef = useRef(null);
 
-    const onChange = (e) => {
+    const showToast = useCallback((msg) => {
+        setToast(msg);
+        if (toastTimerRef.current) window.clearTimeout(toastTimerRef.current);
+        toastTimerRef.current = window.setTimeout(() => setToast(null), 2600);
+    }, []);
+
+    const onChange = useCallback((e) => {
         const { name, value } = e.target;
+
         setForm((p) => ({ ...p, [name]: value }));
+
+        // live clear that field's error
         setErrors((p) => {
             if (!p[name]) return p;
             const copy = { ...p };
             delete copy[name];
             return copy;
         });
-    };
+    }, []);
 
-    const showToast = (msg) => {
-        setToast(msg);
-        window.clearTimeout(showToast._t);
-        showToast._t = window.setTimeout(() => setToast(null), 2600);
-    };
-
-    const setIntentOnly = (next) => {
+    /** Fix urgency behavior:
+     * - Talk => force urgent
+     * - Leaving talk => reset to Standard (only if it was the auto urgent)
+     * - Otherwise, keep what user chose
+     */
+    const setIntentOnly = useCallback((next) => {
         setIntent(next);
-        if (next === "talk") setForm((p) => ({ ...p, urgency: "Urgent (same / next day)" }));
-        if (next === "general") setForm((p) => ({ ...p, urgency: "Standard" }));
-    };
 
-    const scrollToFormTop = () => {
+        setForm((p) => {
+            const autoUrgent = "Urgent (same / next day)";
+            const leavingTalk = p.urgency === autoUrgent && next !== "talk";
+
+            if (next === "talk") return { ...p, urgency: autoUrgent };
+            if (leavingTalk) return { ...p, urgency: "Standard" };
+
+            return p;
+        });
+    }, []);
+
+    const scrollToFormTop = useCallback(() => {
         formTopRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
-    };
+    }, []);
 
-    const heroQuote = () => {
+    const heroQuote = useCallback(() => {
         setIntentOnly("quote");
         scrollToFormTop();
-    };
+    }, [setIntentOnly, scrollToFormTop]);
 
-    const validate = () => {
+    const validate = useCallback(() => {
         const e = {};
         if (!form.name.trim()) e.name = "Required";
         if (!form.email.trim()) e.email = "Required";
         if (!form.service.trim()) e.service = "Required";
         if (!form.urgency.trim()) e.urgency = "Required";
         return e;
-    };
+    }, [form]);
 
-    const onSubmit = (ev) => {
-        ev.preventDefault();
-        const e = validate();
-        setErrors(e);
-        if (Object.keys(e).length) {
-            showToast("Fix the required fields.");
-            return;
-        }
-        showToast("Saved. Delivery will be wired at the end.");
-    };
+    const onSubmit = useCallback(
+        (ev) => {
+            ev.preventDefault();
+            const e = validate();
+            setErrors(e);
 
-    const Field = ({ name, label, required, right, children }) => (
-        <label className="block">
-            <div className="flex items-end justify-between gap-3">
-        <span className="text-sm font-semibold text-slate-900">
-          {label} {required ? <span className="text-green-700">*</span> : null}
-        </span>
-                {right ? <span className="text-xs text-slate-500">{right}</span> : null}
-            </div>
-            <div className="mt-2">{children}</div>
-            {errors[name] ? <p className="mt-2 text-xs font-semibold text-red-600">{errors[name]}</p> : null}
-        </label>
+            if (Object.keys(e).length) {
+                showToast("Fix the required fields.");
+                return;
+            }
+
+            showToast("Saved. Delivery will be wired at the end.");
+        },
+        [validate, showToast]
     );
 
     const intentBtn = (key) =>
@@ -140,7 +170,6 @@ const Contact = () => {
                         Quotes • On-site service • Parts shipping
                     </p>
 
-                    {/* REMOVE the top-right hero card: keep hero clean */}
                     <div className="mt-3">
                         <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight text-slate-900">
                             Contact South Trailers
@@ -157,6 +186,7 @@ const Contact = () => {
                             >
                                 Request a Quote
                             </button>
+
                             <a
                                 href={contact.phoneHref}
                                 className="inline-flex justify-center items-center px-6 py-3 rounded-xl bg-slate-900 text-white font-semibold hover:bg-slate-800 transition shadow-sm"
@@ -173,21 +203,42 @@ const Contact = () => {
                     </div>
 
                     <div className="mt-10 grid grid-cols-1 md:grid-cols-3 gap-4">
-                        <button type="button" onClick={() => setIntentOnly("quote")} className={intentBtn("quote")}>
+                        <button
+                            type="button"
+                            onClick={() => {
+                                setIntentOnly("quote");
+                                scrollToFormTop();
+                            }}
+                            className={intentBtn("quote")}
+                        >
                             <p className="text-sm font-extrabold">Request a quote</p>
                             <p className={`mt-1 text-sm ${intent === "quote" ? "text-white/80" : "text-slate-600"}`}>
                                 Repairs, installs, curtains, parts, shipping.
                             </p>
                         </button>
 
-                        <button type="button" onClick={() => setIntentOnly("talk")} className={intentBtn("talk")}>
+                        <button
+                            type="button"
+                            onClick={() => {
+                                setIntentOnly("talk");
+                                scrollToFormTop();
+                            }}
+                            className={intentBtn("talk")}
+                        >
                             <p className="text-sm font-extrabold">Talk to us</p>
                             <p className={`mt-1 text-sm ${intent === "talk" ? "text-white/80" : "text-slate-600"}`}>
                                 Quick answer or scheduling.
                             </p>
                         </button>
 
-                        <button type="button" onClick={() => setIntentOnly("general")} className={intentBtn("general")}>
+                        <button
+                            type="button"
+                            onClick={() => {
+                                setIntentOnly("general");
+                                scrollToFormTop();
+                            }}
+                            className={intentBtn("general")}
+                        >
                             <p className="text-sm font-extrabold">General question</p>
                             <p className={`mt-1 text-sm ${intent === "general" ? "text-white/80" : "text-slate-600"}`}>
                                 You’re exploring or learning what we do.
@@ -205,11 +256,10 @@ const Contact = () => {
                 </div>
 
                 <div className={`${PAGE_CONTAINER} relative pb-10`}>
-                    {/* KEY FIX: items-stretch + h-full on columns/cards so bottoms align */}
                     <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
-                        {/* LEFT: Direct contact (h-full) */}
+                        {/* LEFT */}
                         <div className="lg:col-span-5 h-full">
-                            <div className={`${cardBase} h-full p-6 flex flex-col`}>
+                            <div className={`${cardBase} h-full p-6 sm:p-7 flex flex-col`}>
                                 <p className="text-lg font-extrabold text-slate-900">Direct contact</p>
                                 <p className="mt-2 text-slate-600">
                                     {intent === "talk"
@@ -219,7 +269,8 @@ const Contact = () => {
                                             : "Send details and we’ll respond with pricing + next steps."}
                                 </p>
 
-                                <div className="mt-5 grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                {/* phone + email */}
+                                <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-4">
                                     <a
                                         href={contact.phoneHref}
                                         className="rounded-xl border border-slate-200 bg-white p-4 hover:bg-slate-50 transition shadow-sm"
@@ -235,17 +286,21 @@ const Contact = () => {
                                         title={contact.emailDisplay}
                                     >
                                         <p className="text-xs font-semibold text-slate-500">Email</p>
-                                        <p className="mt-1 text-base font-extrabold text-slate-900 truncate">{contact.emailDisplay}</p>
+                                        <p className="mt-1 text-base font-extrabold text-slate-900 break-all">
+                                            {contact.emailDisplay}
+                                        </p>
                                         <p className="mt-1 text-xs text-slate-500">Tap to email</p>
                                     </a>
                                 </div>
 
+                                {/* base line */}
                                 <div className="mt-5 rounded-xl border border-slate-200 bg-white p-4">
                                     <p className="text-xs font-semibold text-slate-500">{contact.baseTitle}</p>
                                     <p className="mt-1 text-sm text-slate-600">{contact.baseLine}</p>
                                 </div>
 
-                                <div className="mt-6">
+                                {/* hours */}
+                                <div className="mt-8">
                                     <p className="text-sm font-extrabold text-slate-900">Hours</p>
                                     <div className="mt-3 rounded-xl border border-slate-200 bg-white overflow-hidden">
                                         <div className="divide-y divide-slate-200">
@@ -257,64 +312,76 @@ const Contact = () => {
                                             ))}
                                         </div>
                                     </div>
-
-                                    <div className="mt-4 flex gap-3">
-                                        <a
-                                            href={contact.phoneHref}
-                                            className="flex-1 inline-flex justify-center items-center px-5 py-3 rounded-xl bg-green-600 text-white font-semibold hover:bg-green-700 transition"
-                                        >
-                                            Call
-                                        </a>
-                                        <Link
-                                            to="/products"
-                                            className="flex-1 inline-flex justify-center items-center px-5 py-3 rounded-xl bg-white text-slate-900 font-semibold border border-slate-200 hover:bg-slate-50 transition"
-                                        >
-                                            Parts
-                                        </Link>
-                                    </div>
                                 </div>
 
-                                {/* spacer to help align when form grows */}
-                                <div className="mt-auto" />
+                                {/* bottom CTA aligned sizing */}
+                                <div className="mt-auto pt-8">
+                                    <a
+                                        href={contact.phoneHref}
+                                        className="inline-flex w-full justify-center items-center px-6 py-3 rounded-xl bg-green-600 text-white font-semibold hover:bg-green-700 transition shadow-sm"
+                                    >
+                                        Call Now
+                                    </a>
+                                </div>
                             </div>
                         </div>
 
-                        {/* RIGHT: form (h-full) */}
+                        {/* RIGHT */}
                         <div className="lg:col-span-7 h-full">
                             <div ref={formTopRef} className="scroll-mt-28 md:scroll-mt-32" />
 
                             <div className={`${cardBase} h-full`}>
                                 <div className="p-6 sm:p-8">
-                                    <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
-                                        <div>
-                                            <p className="text-2xl sm:text-3xl font-extrabold tracking-tight text-slate-900">{formTitle}</p>
-                                            <p className="mt-2 text-slate-600">{formSub}</p>
-                                        </div>
-
-                                        <div className="rounded-xl border border-slate-200 bg-white px-4 py-3">
-                                            <p className="text-xs font-semibold text-slate-500">Tip</p>
-                                            <p className="text-sm font-bold text-slate-900">More details = faster quote.</p>
-                                        </div>
+                                    <div>
+                                        <p className="text-2xl sm:text-3xl font-extrabold tracking-tight text-slate-900">
+                                            {formTitle}
+                                        </p>
+                                        <p className="mt-2 text-slate-600">{formSub}</p>
                                     </div>
 
                                     <form onSubmit={onSubmit} className="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-5">
-                                        <Field name="name" label="Full name" required>
-                                            <input className={inputBase} name="name" value={form.name} onChange={onChange} placeholder="John Smith" />
+                                        <Field label="Full name" required error={errors.name}>
+                                            <input
+                                                className={inputBase}
+                                                name="name"
+                                                value={form.name}
+                                                onChange={onChange}
+                                                placeholder="John Smith"
+                                            />
                                         </Field>
 
-                                        <Field name="company" label="Company">
-                                            <input className={inputBase} name="company" value={form.company} onChange={onChange} placeholder="Fleet / Carrier / Shop" />
+                                        <Field label="Company" error={errors.company}>
+                                            <input
+                                                className={inputBase}
+                                                name="company"
+                                                value={form.company}
+                                                onChange={onChange}
+                                                placeholder="Fleet / Carrier / Shop"
+                                            />
                                         </Field>
 
-                                        <Field name="email" label="Email" required>
-                                            <input className={inputBase} name="email" type="email" value={form.email} onChange={onChange} placeholder="name@company.com" />
+                                        <Field label="Email" required error={errors.email}>
+                                            <input
+                                                className={inputBase}
+                                                name="email"
+                                                type="email"
+                                                value={form.email}
+                                                onChange={onChange}
+                                                placeholder="name@company.com"
+                                            />
                                         </Field>
 
-                                        <Field name="phone" label="Phone">
-                                            <input className={inputBase} name="phone" value={form.phone} onChange={onChange} placeholder="(xxx) xxx-xxxx" />
+                                        <Field label="Phone" error={errors.phone}>
+                                            <input
+                                                className={inputBase}
+                                                name="phone"
+                                                value={form.phone}
+                                                onChange={onChange}
+                                                placeholder="(xxx) xxx-xxxx"
+                                            />
                                         </Field>
 
-                                        <Field name="service" label="What do you need?" required>
+                                        <Field label="What do you need?" required error={errors.service}>
                                             <select className={selectBase} name="service" value={form.service} onChange={onChange}>
                                                 <option>Curtain Side Services</option>
                                                 <option>Mechanical Trailer Services</option>
@@ -324,7 +391,7 @@ const Contact = () => {
                                             </select>
                                         </Field>
 
-                                        <Field name="urgency" label="Urgency" required>
+                                        <Field label="Urgency" required error={errors.urgency}>
                                             <select className={selectBase} name="urgency" value={form.urgency} onChange={onChange}>
                                                 <option>Standard</option>
                                                 <option>Urgent (same / next day)</option>
@@ -334,14 +401,14 @@ const Contact = () => {
                                         </Field>
 
                                         <div className="sm:col-span-2">
-                                            <Field name="message" label="Message" right="details + measurements help">
-                        <textarea
-                            className={`${inputBase} min-h-[150px] resize-y`}
-                            name="message"
-                            value={form.message}
-                            onChange={onChange}
-                            placeholder="Example: 48' curtain. Damage near rear. Rollers bind. Need parts + labor estimate."
-                        />
+                                            <Field label="Message" right="details + measurements help" error={errors.message}>
+                                                <textarea
+                                                    className={`${inputBase} min-h-[150px] resize-y`}
+                                                    name="message"
+                                                    value={form.message}
+                                                    onChange={onChange}
+                                                    placeholder="Example: 48' curtain. Damage near rear. Rollers bind. Need parts + labor estimate."
+                                                />
                                             </Field>
 
                                             <div className="mt-4 rounded-xl border border-slate-200 bg-white p-4">
@@ -374,7 +441,7 @@ const Contact = () => {
                     </div>
                 </div>
 
-                {/* BOTTOM combined card - tightened + balanced */}
+                {/* BOTTOM combined */}
                 <div className={`${PAGE_CONTAINER} pb-16`}>
                     <div className={`${cardBase} p-6`}>
                         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
@@ -398,7 +465,6 @@ const Contact = () => {
 
                             <div className="lg:col-span-7">
                                 <p className="text-lg font-extrabold text-slate-900">What you get</p>
-                                {/* Make these fill and align better */}
                                 <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4">
                                     <div className="rounded-2xl border border-slate-200 bg-slate-50 p-5 h-full">
                                         <p className="text-sm font-extrabold text-slate-900">Fast turnaround</p>
@@ -414,12 +480,7 @@ const Contact = () => {
                                     </div>
                                 </div>
 
-                                {/* subtle note to avoid emptiness */}
-                                <div className="mt-4 rounded-xl border border-slate-200 bg-white px-4 py-3">
-                                    <p className="text-sm text-slate-600">
-                                        Need a faster answer? Call us and we’ll guide you on measurements and what to send.
-                                    </p>
-                                </div>
+                                {/* removed the extra “Need a faster answer?” rectangle */}
                             </div>
                         </div>
                     </div>

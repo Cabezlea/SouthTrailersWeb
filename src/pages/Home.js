@@ -117,7 +117,7 @@ const Home = () => {
                     <div className={`${NAV_CONTAINER} h-full flex items-center`}>
                         <div className="text-left w-full max-w-xl sm:max-w-2xl lg:max-w-[42rem] xl:max-w-[42rem]">
                             <h1 className="text-white font-extrabold leading-[1.05] tracking-tight text-4xl sm:text-5xl lg:text-6xl xl:text-[60px]">
-                                Curtain Side Solutions for Trucking Companies
+                                Heavy Duty Solutions for Trailer Companies
                             </h1>
 
                             <p className="mt-4 text-white/90 text-base sm:text-lg">
