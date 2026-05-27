@@ -85,7 +85,7 @@ const Home = () => {
         },
         {
             title: "Roadside Assistance",
-            desc: "Emergency trailer repair, lighting issues, brake-related problems, temporary field fixes, and fleet support.",
+            desc: " 24/7 Emergency trailer repair, lighting issues, brake-related problems, temporary field fixes, and fleet support.",
         },
     ];
 
