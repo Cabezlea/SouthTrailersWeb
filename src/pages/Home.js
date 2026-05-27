@@ -3,50 +3,31 @@ import { Link } from "react-router-dom";
 import { useEffect, useMemo, useRef, useState } from "react";
 
 const Home = () => {
-    // MUST match Navbar container (Navbar is full width, not max-w-7xl)
     const NAV_CONTAINER = "w-full px-5 sm:px-8 xl:px-14";
-
-    // For sections below hero you can keep max width (optional, but looks clean)
     const PAGE_CONTAINER = "max-w-7xl mx-auto px-5 sm:px-8 xl:px-14";
+    const safeUrl = (p) => encodeURI(p);
 
-    // --- CLIENT LOGOS (public/images/Clients/*) ---
-    const clientLogos = useMemo(
-        () => [
-            { name: "Coca-Cola", src: "/images/Clients/cocaCola-logo.png" },
-            { name: "Brazos", src: "/images/Clients/Brazos-logo.webp" },
-            { name: "Coleman", src: "/images/Clients/coleman-logo.jpeg" },
-            { name: "Melaminetex", src: "/images/Clients/melaminetex-logo.png" },
-            { name: "Sunbelt", src: "/images/Clients/sunbelt-logo.png" },
-            { name: "Woodgrain", src: "/images/Clients/woodgrain-logo-1.png" },
-            { name: "Client 7", src: "" },
-            { name: "Client 8", src: "" },
-        ],
-        []
-    );
-
-    // --- VIDEOS (public/images/Videos/*) ---
     const videos = useMemo(
         () => [
             {
-                title: "Curtain Work (Shop)",
-                desc: "Curtain fabrication, repairs, and hardware work from our shop.",
+                title: "Curtain Side Work",
+                desc: "Curtain-side repair, installation, and hardware work for commercial trailer equipment.",
                 src: "/images/Videos/Bolsillo.mov",
             },
             {
                 title: "PVC Strap Installation",
-                desc: "Clean installs and practical fixes that keep fleets moving.",
+                desc: "Component installation and curtain-side hardware work performed cleanly and correctly.",
                 src: "/images/Videos/Instalación de faja PVC.mov",
             },
             {
                 title: "Roller / Track Work",
-                desc: "Rollers, track alignment, and small parts done right so curtains glide.",
+                desc: "Rollers, track alignment, and hardware work that keeps curtain systems moving properly.",
                 src: "/images/Videos/Instalación de rodamiento.mov",
             },
         ],
         []
     );
 
-    // Autoplay ONLY when visible (and stop when not visible)
     const videoRefs = useRef([]);
     const [videoLoaded, setVideoLoaded] = useState(() => videos.map(() => false));
 
@@ -75,62 +56,71 @@ const Home = () => {
         return () => io.disconnect();
     }, [videos.length]);
 
-    // --- PRODUCT GALLERY (public/images/Products/*) ---
-    // USE YOUR REAL FILENAMES EXACTLY (spaces/caps) + encodeURI()
-    const gallery = useMemo(
+    const clientLogos = useMemo(
         () => [
-            { label: "Back plate", src: "/images/Products/Back plate.jpeg" },
-            { label: "Bottom Adaptor", src: "/images/Products/Bottom Adaptor.jpeg" },
-            { label: "Hebilla", src: "/images/Products/Hebilla.jpg" },
-            { label: "Perfil Plano", src: "/images/Products/PERFIL PLANO.jpg" },
-            { label: "Ratchet", src: "/images/Products/Ratchet.jpeg" },
-            { label: "RaveHook", src: "/images/Products/RaveHook.png" },
-            { label: "Riel", src: "/images/Products/RIEL.jpg" },
-            { label: "Roller 1R", src: "/images/Products/Roller 1R.jpg" },
-            { label: "Roller 2R", src: "/images/Products/Roller 2R.jpg" },
-            { label: "Tubo Tensor", src: "/images/Products/TUBO TENSOR.jpg" },
+            { name: "Coca-Cola", src: "/images/Clients/cocaCola-logo.png" },
+            { name: "Brazos", src: "/images/Clients/Brazos-logo.webp" },
+            { name: "Coleman", src: "/images/Clients/coleman-logo.jpeg" },
+            { name: "Melaminetex", src: "/images/Clients/melaminetex-logo.png" },
+            { name: "Sunbelt", src: "/images/Clients/sunbelt-logo.png" },
+            { name: "Woodgrain", src: "/images/Clients/woodgrain-logo-1.png" },
+            { name: "Client 7", src: "" },
+            { name: "Client 8", src: "" },
         ],
         []
     );
 
-    const [gIdx, setGIdx] = useState(0);
-    useEffect(() => {
-        const t = setInterval(() => setGIdx((v) => (v + 1) % gallery.length), 5000);
-        return () => clearInterval(t);
-    }, [gallery.length]);
-
-    const safeUrl = (p) => encodeURI(p); // fixes spaces + accents
+    const servicePillars = [
+        {
+            title: "Trailer Repair & Fleet Maintenance",
+            desc: "Structural repairs, roof work, suspension, airbags, brakes, lighting, welding, landing gear, and preventive maintenance.",
+        },
+        {
+            title: "Mobile Fleet Service",
+            desc: "On-site repair and maintenance at fleet yards, warehouses, terminals, distribution centers, and customer facilities.",
+        },
+        {
+            title: "DOT & Compliance Support",
+            desc: "Annual DOT inspections, compliance-related repairs, safety corrections, and fleet readiness support.",
+        },
+        {
+            title: "Roadside Assistance",
+            desc: "Emergency trailer repair, lighting issues, brake-related problems, temporary field fixes, and fleet emergency response.",
+        },
+    ];
 
     return (
         <main>
-            {/* ================= HERO ================= */}
-            <section className="relative h-[85vh] min-h-[560px] w-full overflow-hidden">
+            {/* HERO */}
+            <section className="relative h-[85vh] min-h-[35rem] w-full overflow-hidden">
                 <div
                     className="absolute inset-0 bg-center bg-cover"
                     style={{ backgroundImage: "url(/images/Banners/South_Trailers_banner.png)" }}
                 />
-                <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/45 to-black/10" />
+                <div className="absolute inset-0 bg-gradient-to-r from-black/85 via-black/55 to-black/15" />
 
-                {/* navbar height spacing */}
                 <div className="relative h-full pt-20">
-                    {/* IMPORTANT: use NAV_CONTAINER (same as Navbar) */}
                     <div className={`${NAV_CONTAINER} h-full flex items-center`}>
-                        <div className="text-left w-full max-w-xl sm:max-w-2xl lg:max-w-[42rem] xl:max-w-[42rem]">
-                            <h1 className="text-white font-extrabold leading-[1.05] tracking-tight text-4xl sm:text-5xl lg:text-6xl xl:text-[60px]">
-                                Heavy Duty Solutions for Trailer Companies
+                        <div className="text-left w-full max-w-[42rem]">
+                            <p className="mb-4 inline-flex rounded-full border border-white/20 bg-white/10 px-4 py-2 text-sm font-semibold text-white/90 backdrop-blur">
+                                Houston-area fleet service • mobile repair • DOT support
+                            </p>
+
+                            <h1 className="text-white font-extrabold leading-[1.03] tracking-tight text-4xl sm:text-5xl lg:text-6xl xl:text-[3.55rem]">
+                                Heavy-Duty Trailer Repair & Fleet Maintenance
                             </h1>
 
-                            <p className="mt-4 text-white/90 text-base sm:text-lg">
-                                Manufacturing, installation, and maintenance of curtain sides and parts — with on-site
-                                curtain repair and assessment available.
+                            <p className="mt-5 text-white/90 text-base sm:text-lg leading-relaxed max-w-[40rem]">
+                                Mobile fleet service, DOT-related repairs, preventive maintenance, roadside assistance,
+                                and curtain-side solutions for commercial fleets.
                             </p>
 
                             <div className="mt-8 flex flex-col sm:flex-row gap-3">
                                 <Link
                                     to="/contact"
-                                    className="inline-flex justify-center items-center px-6 py-3 rounded-md bg-green-600 text-white font-semibold hover:bg-green-700 transition"
+                                    className="inline-flex justify-center items-center px-6 py-3 rounded-md bg-green-600 text-white font-semibold hover:bg-green-700 transition shadow-lg shadow-green-900/20"
                                 >
-                                    Request Quote
+                                    Request Fleet Service
                                 </Link>
 
                                 <a
@@ -143,17 +133,17 @@ const Home = () => {
                         </div>
                     </div>
 
-                    {/* bottom strip */}
                     <div className="absolute bottom-0 left-0 right-0">
-                        <div className="bg-black/35 backdrop-blur-sm border-t border-white/10">
-                            {/* keep strip aligned with hero text (use NAV_CONTAINER too) */}
+                        <div className="bg-black/40 backdrop-blur-sm border-t border-white/10">
                             <div className={`${NAV_CONTAINER} py-4`}>
                                 <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-6 text-white/90 text-sm font-medium">
-                                    <span>15+ years experience</span>
+                                    <span>Mobile fleet service</span>
                                     <span className="hidden sm:inline text-white/40">|</span>
-                                    <span>On-site curtain repair</span>
+                                    <span>DOT support</span>
                                     <span className="hidden sm:inline text-white/40">|</span>
-                                    <span>Curtains &amp; parts shipping</span>
+                                    <span>Preventive maintenance</span>
+                                    <span className="hidden sm:inline text-white/40">|</span>
+                                    <span>Roadside assistance</span>
                                 </div>
                             </div>
                         </div>
@@ -161,156 +151,156 @@ const Home = () => {
                 </div>
             </section>
 
-            {/* ================= SECTION: Real work / products cards ================= */}
-            <section className="relative overflow-hidden bg-slate-50">
+            {/* SERVICE PRIORITIES */}
+            <section className="relative overflow-hidden bg-slate-950">
                 <div className="pointer-events-none absolute inset-0">
-                    <div className="absolute -top-40 left-1/2 h-[520px] w-[520px] -translate-x-1/2 rounded-full bg-green-500/10 blur-3xl" />
-                    <div className="absolute -bottom-48 right-[-120px] h-[520px] w-[520px] rounded-full bg-slate-900/10 blur-3xl" />
+                    <div className="absolute -top-40 left-1/4 h-[32rem] w-[32rem] rounded-full bg-green-500/10 blur-3xl" />
+                    <div className="absolute -bottom-40 right-0 h-[30rem] w-[30rem] rounded-full bg-white/5 blur-3xl" />
+                </div>
+
+                <div className={`${PAGE_CONTAINER} relative py-16`}>
+                    <div className="max-w-3xl">
+                        <p className="text-green-400 font-semibold">Fleet uptime first</p>
+                        <h2 className="mt-3 text-4xl sm:text-5xl font-extrabold tracking-tight text-white">
+                            The main services fleets need to keep trailers working.
+                        </h2>
+                        <p className="mt-4 text-slate-300 text-base sm:text-lg leading-relaxed">
+                            South Trailers supports commercial fleets with repair, maintenance, mobile service,
+                            DOT-related work, and emergency response.
+                        </p>
+                    </div>
+
+                    <div className="mt-10 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-5">
+                        {servicePillars.map((item, index) => (
+                            <div
+                                key={item.title}
+                                className="rounded-2xl border border-white/10 bg-white/[0.06] p-6 backdrop-blur hover:bg-white/[0.09] hover:-translate-y-1 transition"
+                            >
+                                <div className="mb-5 flex h-11 w-11 items-center justify-center rounded-xl bg-green-500/15 text-green-300 font-bold">
+                                    0{index + 1}
+                                </div>
+                                <h3 className="text-white text-lg font-bold">{item.title}</h3>
+                                <p className="mt-3 text-slate-300 text-sm leading-relaxed">{item.desc}</p>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            </section>
+
+            {/* MOBILE SERVICE */}
+            <section className="relative overflow-hidden bg-gradient-to-b from-white via-slate-50 to-white">
+                <div className="pointer-events-none absolute inset-0">
+                    <div className="absolute -left-40 top-10 h-[32rem] w-[32rem] rounded-full bg-green-500/10 blur-3xl" />
+                    <div className="absolute right-0 bottom-0 h-[32rem] w-[32rem] rounded-full bg-slate-900/5 blur-3xl" />
                     <div className="absolute inset-0 opacity-[0.035] flex items-center justify-center">
                         <img
                             src="/images/Banners/South_Trailers_CMYK.png"
                             alt=""
-                            className="w-[980px] max-w-none rotate-[-12deg] select-none"
+                            className="w-[60rem] max-w-none rotate-[-10deg] select-none"
                             draggable={false}
                         />
                     </div>
                 </div>
 
                 <div className={`${PAGE_CONTAINER} relative py-16`}>
-                    <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6">
-                        <div className="max-w-2xl">
-                            <h2 className="text-4xl sm:text-5xl font-extrabold tracking-tight text-slate-900">
-                                Real work. Real results.
-                            </h2>
-                            <p className="mt-3 text-slate-600 text-base sm:text-lg">
-                                Quick look at what we do — curtain side services, parts, installs, and the details that
-                                keep fleets moving.
-                            </p>
+                    <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
+                        <div className="lg:col-span-5 rounded-3xl bg-slate-950 p-8 text-white overflow-hidden relative">
+                            <div className="absolute -right-24 -bottom-24 h-72 w-72 rounded-full bg-green-500/20 blur-3xl" />
+                            <div className="relative">
+                                <p className="text-green-400 font-semibold">Mobile fleet service</p>
+                                <h2 className="mt-3 text-4xl font-extrabold tracking-tight">
+                                    We service trailers where the fleet operates.
+                                </h2>
+                                <p className="mt-4 text-slate-300 leading-relaxed">
+                                    On-site service helps fleets reduce downtime, handle multiple units, and avoid
+                                    unnecessary trips away from the yard.
+                                </p>
+                                <Link
+                                    to="/contact"
+                                    className="mt-7 inline-flex justify-center items-center px-6 py-3 rounded-xl bg-green-600 text-white font-semibold hover:bg-green-700 transition"
+                                >
+                                    Schedule Mobile Service
+                                </Link>
+                            </div>
                         </div>
 
-                        <Link
-                            to="/services"
-                            className="inline-flex justify-center items-center px-6 py-3 rounded-xl bg-white/70 backdrop-blur border border-slate-200 text-slate-900 font-semibold hover:bg-white transition shadow-sm"
-                        >
-                            View Services
-                        </Link>
+                        <div className="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-5">
+                            {[
+                                "Fleet yards",
+                                "Warehouses",
+                                "Trucking terminals",
+                                "Distribution centers",
+                                "Customer facilities",
+                                "Emergency field support",
+                            ].map((item) => (
+                                <div
+                                    key={item}
+                                    className="rounded-2xl border border-slate-200 bg-white/80 p-6 shadow-sm hover:-translate-y-1 hover:shadow-md transition"
+                                >
+                                    <div className="h-10 w-10 rounded-xl bg-green-100 text-green-700 flex items-center justify-center font-bold">
+                                        ✓
+                                    </div>
+                                    <p className="mt-4 font-bold text-slate-900">{item}</p>
+                                    <p className="mt-2 text-sm text-slate-600">
+                                        Service focused on uptime, safety, and getting equipment back to work.
+                                    </p>
+                                </div>
+                            ))}
+                        </div>
                     </div>
+                </div>
+            </section>
 
-                    <div className="mt-10 grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
-                        {/* Rotating Gallery */}
-                        <div className="lg:col-span-8">
-                            <div className="h-full rounded-2xl border border-slate-200 bg-white/70 backdrop-blur shadow-sm overflow-hidden">
-                                <div className="px-6 py-5 flex items-center justify-between">
-                                    <div>
-                                        <p className="text-lg font-bold text-slate-900">Rotating Gallery</p>
-                                        <p className="text-slate-600 text-sm">
-                                            Parts, hardware, rails, and common components we work with.
-                                        </p>
-                                    </div>
-
-                                    <div className="flex items-center gap-2">
-                                        <button
-                                            type="button"
-                                            onClick={() => setGIdx((v) => (v - 1 + gallery.length) % gallery.length)}
-                                            className="w-10 h-10 rounded-full border border-slate-200 bg-white hover:bg-slate-50 transition"
-                                            aria-label="Previous"
-                                        >
-                                            ‹
-                                        </button>
-                                        <button
-                                            type="button"
-                                            onClick={() => setGIdx((v) => (v + 1) % gallery.length)}
-                                            className="w-10 h-10 rounded-full border border-slate-200 bg-white hover:bg-slate-50 transition"
-                                            aria-label="Next"
-                                        >
-                                            ›
-                                        </button>
-                                    </div>
-                                </div>
-
-                                <div className="px-6 pb-6">
-                                    <div className="rounded-2xl border border-slate-200 bg-white overflow-hidden">
-                                        {/* consistent image area so it never looks messy */}
-                                        <div className="aspect-[16/10] w-full relative bg-slate-50">
-                                            <img
-                                                src={safeUrl(gallery[gIdx].src)}
-                                                alt={gallery[gIdx].label}
-                                                className="absolute inset-0 w-full h-full object-contain p-8 sm:p-10"
-                                            />
-                                            {/* label pill */}
-                                            <div className="absolute left-4 bottom-4">
-                                                <span className="inline-flex items-center px-3 py-1.5 rounded-full text-sm font-semibold bg-white/90 backdrop-blur border border-slate-200 text-slate-800 shadow-sm">
-                                                    {gallery[gIdx].label}
-                                                </span>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div className="mt-4 flex flex-wrap gap-2">
-                                        {gallery.map((g, i) => (
-                                            <button
-                                                key={g.label}
-                                                onClick={() => setGIdx(i)}
-                                                className={[
-                                                    "px-3 py-1.5 rounded-full text-sm font-semibold transition border",
-                                                    i === gIdx
-                                                        ? "bg-slate-900 text-white border-slate-900"
-                                                        : "bg-white/70 text-slate-700 border-slate-200 hover:bg-white",
-                                                ].join(" ")}
-                                            >
-                                                {g.label}
-                                            </button>
-                                        ))}
-                                    </div>
-                                </div>
-                            </div>
+            {/* DOT / RECURRING FLEET WORK */}
+            <section className="bg-white">
+                <div className={`${PAGE_CONTAINER} py-16`}>
+                    <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                        <div className="lg:col-span-6">
+                            <p className="text-green-700 font-semibold">DOT work becomes repair work</p>
+                            <h2 className="mt-2 text-4xl sm:text-5xl font-extrabold tracking-tight text-slate-900">
+                                Inspections, repairs, and maintenance under one fleet service path.
+                            </h2>
                         </div>
 
-                        {/* Services + Products boxes */}
-                        <div className="lg:col-span-4 flex flex-col gap-6">
-                            <div className="flex-1 rounded-2xl border border-slate-200 bg-white/70 backdrop-blur shadow-sm p-6">
-                                <p className="text-lg font-bold text-slate-900">Services</p>
-                                <p className="mt-2 text-slate-600">
-                                    With over 15 years of experience, we deliver curtain-side manufacturing and installs
-                                    (with or without graphics), plus maintenance of the curtain system and components.
-                                </p>
-                                <Link
-                                    to="/services"
-                                    className="mt-5 inline-flex justify-center items-center px-5 py-3 rounded-xl bg-green-600 text-white font-semibold hover:bg-green-700 transition"
-                                >
-                                    Learn More
-                                </Link>
-                            </div>
+                        <div className="lg:col-span-6">
+                            <p className="text-slate-600 text-lg leading-relaxed">
+                                DOT inspections often uncover repair needs fleets must handle quickly: lighting,
+                                suspension, airbags, roof issues, structural corrections, brake-related work, and
+                                preventive maintenance opportunities.
+                            </p>
 
-                            <div className="flex-1 rounded-2xl border border-slate-200 bg-white/70 backdrop-blur shadow-sm p-6">
-                                <p className="text-lg font-bold text-slate-900">Products</p>
-                                <p className="mt-2 text-slate-600">
-                                    High-quality parts and hardware for curtain-side trailers commonly used in the United
-                                    States and Europe — built around consistency, fit, and long-term durability.
-                                </p>
-                                <Link
-                                    to="/products"
-                                    className="mt-5 inline-flex justify-center items-center px-5 py-3 rounded-xl bg-white text-slate-900 font-semibold border border-slate-200 hover:bg-slate-50 transition"
-                                >
-                                    View Products
-                                </Link>
+                            <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-3">
+                                {[
+                                    "Annual DOT inspections",
+                                    "Compliance-related repairs",
+                                    "Preventive maintenance",
+                                    "Recurring fleet support",
+                                ].map((item) => (
+                                    <div
+                                        key={item}
+                                        className="rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm font-semibold text-slate-800"
+                                    >
+                                        {item}
+                                    </div>
+                                ))}
                             </div>
                         </div>
                     </div>
                 </div>
             </section>
 
-            {/* ================= SECTION: Videos ================= */}
-            <section className="bg-white">
+            {/* VIDEOS */}
+            <section className="bg-slate-50">
                 <div className={`${PAGE_CONTAINER} py-16`}>
                     <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6">
                         <div className="max-w-3xl">
-                            <h2 className="text-4xl sm:text-5xl font-extrabold tracking-tight text-slate-900">
+                            <p className="text-green-700 font-semibold">Shop and field work</p>
+                            <h2 className="mt-2 text-4xl sm:text-5xl font-extrabold tracking-tight text-slate-900">
                                 Work, captured.
                             </h2>
                             <p className="mt-3 text-slate-600 text-base sm:text-lg">
-                                Short clips from installs and shop work — the details that don’t show up on a quote but
-                                absolutely show up on the road.
+                                Short clips from installs and shop work. More service photos will be added as fleet
+                                repair and mobile work are documented.
                             </p>
                         </div>
 
@@ -318,7 +308,7 @@ const Home = () => {
                             to="/contact"
                             className="inline-flex justify-center items-center px-6 py-3 rounded-xl bg-slate-900 text-white font-semibold hover:bg-slate-800 transition shadow-sm"
                         >
-                            Request a Quote
+                            Request Fleet Service
                         </Link>
                     </div>
 
@@ -365,17 +355,18 @@ const Home = () => {
                 </div>
             </section>
 
-            {/* ================= SECTION: Trusted by ================= */}
-            <section className="relative overflow-hidden bg-slate-50">
+            {/* TRUSTED BY */}
+            <section className="relative overflow-hidden bg-white">
                 <div className="pointer-events-none absolute inset-0">
-                    <div className="absolute -top-40 right-[-160px] h-[520px] w-[520px] rounded-full bg-green-500/10 blur-3xl" />
-                    <div className="absolute -bottom-48 left-[-140px] h-[520px] w-[520px] rounded-full bg-slate-900/10 blur-3xl" />
+                    <div className="absolute -top-40 right-[-160px] h-[32rem] w-[32rem] rounded-full bg-green-500/10 blur-3xl" />
+                    <div className="absolute -bottom-48 left-[-140px] h-[32rem] w-[32rem] rounded-full bg-slate-900/10 blur-3xl" />
                 </div>
 
                 <div className={`${PAGE_CONTAINER} relative py-16`}>
                     <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6">
                         <div>
-                            <h2 className="text-4xl sm:text-5xl font-extrabold tracking-tight text-slate-900">
+                            <p className="text-green-700 font-semibold">Commercial credibility</p>
+                            <h2 className="mt-2 text-4xl sm:text-5xl font-extrabold tracking-tight text-slate-900">
                                 Trusted by
                             </h2>
                             <p className="mt-3 text-slate-600 text-base sm:text-lg">
@@ -387,11 +378,10 @@ const Home = () => {
                             to="/contact"
                             className="inline-flex justify-center items-center px-6 py-3 rounded-xl bg-white/70 backdrop-blur border border-slate-200 text-slate-900 font-semibold hover:bg-white transition shadow-sm"
                         >
-                            Request a Quote
+                            Request Service
                         </Link>
                     </div>
 
-                    {/* Force 3-per-row at md+ */}
                     <div className="mt-10 grid grid-cols-2 md:grid-cols-3 gap-10 md:gap-12 place-items-center">
                         {clientLogos.map((c) => {
                             const hasSrc = Boolean(c.src);
@@ -422,12 +412,14 @@ const Home = () => {
                         })}
                     </div>
 
-                    {/* CTA strip */}
                     <div className="mt-14 rounded-2xl border border-slate-200 bg-white/70 backdrop-blur shadow-sm p-6 flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
                         <div>
-                            <p className="text-xl font-extrabold text-slate-900">Need a quote today?</p>
+                            <p className="text-xl font-extrabold text-slate-900">
+                                Looking for recurring fleet maintenance support?
+                            </p>
                             <p className="mt-1 text-slate-600">
-                                Send photos, measurements, or a quick description — we’ll respond fast with next steps.
+                                Ask about PM schedules, recurring DOT cycles, mobile service programs, and preferred
+                                vendor support.
                             </p>
                         </div>
 

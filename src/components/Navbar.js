@@ -24,10 +24,10 @@ const Navbar = () => {
 
     // ===== EASY TWEAKS (sizes) =====
     const NAV_TEXT = "text-[16px] md:text-[15px]";
-    const DROPDOWN_WIDE = "w-[260px]";
+    const DROPDOWN_WIDE = "w-[280px]";
     const DROPDOWN_MED = "w-[240px]";
     const DROPDOWN_NARROW = "w-[230px]";
-    const DROPDOWN_ITEM = "px-4 py-2.5"; // smaller than before
+    const DROPDOWN_ITEM = "px-4 py-3"; // more vertical space
     // ===============================
 
     const linkBase = `relative ${NAV_TEXT} font-semibold tracking-tight transition transform`;
@@ -45,12 +45,11 @@ const Navbar = () => {
                     : "text-white/90 hover:text-white",
             "hover:-translate-y-[1px]",
             "after:content-[''] after:absolute after:left-0 after:-bottom-1 after:h-[2px] after:w-0 after:transition-all after:duration-200",
-            isSolid
-                ? "after:bg-green-600 hover:after:w-full"
-                : "after:bg-white/80 hover:after:w-full",
+            isSolid ? "after:bg-green-600 hover:after:w-full" : "after:bg-white/80 hover:after:w-full",
         ].join(" ");
 
-    const dropdownItem = `block ${DROPDOWN_ITEM} text-sm font-medium text-gray-900 hover:text-green-700 hover:bg-gray-50 transition`;
+    const dropdownItem =
+        `block ${DROPDOWN_ITEM} text-sm font-medium text-gray-900 hover:text-green-700 hover:bg-gray-50 transition`;
 
     const dropdownWrap =
         "absolute left-1/2 -translate-x-1/2 top-full pt-3 opacity-0 pointer-events-none translate-y-1 group-hover:opacity-100 group-hover:pointer-events-auto group-hover:translate-y-0 transition";
@@ -66,12 +65,11 @@ const Navbar = () => {
     return (
         <header
             className={[
-                "w-full z-50",
-                isHome ? "absolute top-0 left-0" : "sticky top-0",
+                "fixed top-0 left-0 w-full z-50", // FIXED on top
                 isHome
-                    ? (scrolled
+                    ? scrolled
                         ? "bg-black/35 backdrop-blur border-b border-white/10"
-                        : "bg-transparent")
+                        : "bg-transparent"
                     : "bg-white/95 backdrop-blur border-b border-gray-200",
             ].join(" ")}
         >
@@ -91,25 +89,28 @@ const Navbar = () => {
                         Home
                     </NavLink>
 
+                    {/* SERVICES */}
                     <div className="relative group">
                         <NavLink to="/services" className={linkDesktop}>
                             Services
                         </NavLink>
+
                         <div className={dropdownWrap}>
                             <Panel widthClass={DROPDOWN_WIDE}>
+                                <Link to="/services#mobile" className={dropdownItem}>
+                                    Mobile Trailer Service
+                                </Link>
                                 <Link to="/services#curtain" className={dropdownItem}>
                                     Curtain Side Services
                                 </Link>
-                                <Link to="/services#mechanical" className={dropdownItem}>
-                                    Mechanical Trailer Services
-                                </Link>
-                                <Link to="/services#shipping" className={dropdownItem}>
+                                <Link to="/shipping" className={dropdownItem}>
                                     Shipping (Curtains & Parts)
                                 </Link>
                             </Panel>
                         </div>
                     </div>
 
+                    {/* PRODUCTS */}
                     <div className="relative group">
                         <NavLink to="/products" className={linkDesktop}>
                             Products
@@ -132,6 +133,7 @@ const Navbar = () => {
                         </div>
                     </div>
 
+                    {/* SHIPPING */}
                     <div className="relative group">
                         <NavLink to="/shipping" className={linkDesktop}>
                             Shipping
@@ -159,9 +161,7 @@ const Navbar = () => {
                 <button
                     className={[
                         "md:hidden inline-flex items-center justify-center w-11 h-11 rounded-lg",
-                        isSolid
-                            ? "border border-gray-200 text-gray-900"
-                            : "border border-white/30 text-white",
+                        isSolid ? "border border-gray-200 text-gray-900" : "border border-white/30 text-white",
                     ].join(" ")}
                     onClick={() => setMenuOpen((v) => !v)}
                     aria-label="Toggle menu"
@@ -172,7 +172,7 @@ const Navbar = () => {
 
             {menuOpen && (
                 <div className="md:hidden border-t border-white/10 bg-white">
-                    <div className="px-6 py-5 flex flex-col gap-3">
+                    <div className="px-6 py-6 flex flex-col gap-4">
                         <NavLink to="/" className="text-gray-900 font-semibold text-[16px]" end>
                             Home
                         </NavLink>
@@ -180,22 +180,22 @@ const Navbar = () => {
                         <NavLink to="/services" className="text-gray-900 font-semibold text-[16px]">
                             Services
                         </NavLink>
-                        <div className="pl-3 flex flex-col gap-2 text-sm">
+                        <div className="pl-3 flex flex-col gap-3 text-sm">
+                            <Link to="/services#mobile" className="text-gray-700 hover:text-green-700">
+                                Mobile Trailer Service
+                            </Link>
                             <Link to="/services#curtain" className="text-gray-700 hover:text-green-700">
                                 Curtain Side Services
                             </Link>
-                            <Link to="/services#mechanical" className="text-gray-700 hover:text-green-700">
-                                Mechanical Trailer Services
-                            </Link>
-                            <Link to="/services#shipping" className="text-gray-700 hover:text-green-700">
-                                Shipping
+                            <Link to="/shipping" className="text-gray-700 hover:text-green-700">
+                                Shipping (Curtains & Parts)
                             </Link>
                         </div>
 
                         <NavLink to="/products" className="text-gray-900 font-semibold text-[16px]">
                             Products
                         </NavLink>
-                        <div className="pl-3 flex flex-col gap-2 text-sm">
+                        <div className="pl-3 flex flex-col gap-3 text-sm">
                             <Link to="/products" className="text-gray-700 hover:text-green-700">
                                 View All Parts
                             </Link>
@@ -213,7 +213,7 @@ const Navbar = () => {
                         <NavLink to="/shipping" className="text-gray-900 font-semibold text-[16px]">
                             Shipping
                         </NavLink>
-                        <div className="pl-3 flex flex-col gap-2 text-sm">
+                        <div className="pl-3 flex flex-col gap-3 text-sm">
                             <Link to="/shipping#curtains" className="text-gray-700 hover:text-green-700">
                                 Curtain Shipping
                             </Link>
