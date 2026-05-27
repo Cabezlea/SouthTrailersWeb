@@ -77,7 +77,7 @@ const Home = () => {
         },
         {
             title: "Mobile Fleet Service",
-            desc: "On-site repair and maintenance at fleet yards, warehouses, terminals, distribution centers, and customer facilities.",
+            desc: "On-site repair and maintenance for fleets that need service without pulling trailers out of operation.",
         },
         {
             title: "DOT & Compliance Support",
@@ -85,7 +85,53 @@ const Home = () => {
         },
         {
             title: "Roadside Assistance",
-            desc: "Emergency trailer repair, lighting issues, brake-related problems, temporary field fixes, and fleet emergency response.",
+            desc: "Emergency trailer repair, lighting issues, brake-related problems, temporary field fixes, and fleet support.",
+        },
+    ];
+
+    const mobileLocations = [
+        {
+            title: "Fleet yards",
+            desc: "Good for servicing multiple trailers without moving equipment away from your operation.",
+        },
+        {
+            title: "Warehouses",
+            desc: "On-site work for trailers staged around loading docks and distribution activity.",
+        },
+        {
+            title: "Trucking terminals",
+            desc: "Repair and maintenance support where trailers are already parked and cycling through.",
+        },
+        {
+            title: "Distribution centers",
+            desc: "Fleet support for high-volume locations where downtime creates operational pressure.",
+        },
+        {
+            title: "Customer facilities",
+            desc: "Scheduled service at your location when bringing trailers to a shop is not efficient.",
+        },
+        {
+            title: "Emergency field support",
+            desc: "Roadside and field response when a trailer issue needs to be handled quickly.",
+        },
+    ];
+
+    const dotItems = [
+        {
+            title: "Annual DOT inspections",
+            desc: "Inspection work that helps identify compliance and safety issues before they become bigger problems.",
+        },
+        {
+            title: "Compliance-related repairs",
+            desc: "Lighting, suspension, airbags, roof issues, structural corrections, and other required repairs.",
+        },
+        {
+            title: "Preventive maintenance",
+            desc: "Recurring service that helps fleets reduce unexpected breakdowns and keep trailers ready.",
+        },
+        {
+            title: "Recurring fleet support",
+            desc: "A path toward PM schedules, inspection cycles, and preferred vendor relationships.",
         },
     ];
 
@@ -97,22 +143,26 @@ const Home = () => {
                     className="absolute inset-0 bg-center bg-cover"
                     style={{ backgroundImage: "url(/images/Banners/South_Trailers_banner.png)" }}
                 />
-                <div className="absolute inset-0 bg-gradient-to-r from-black/85 via-black/55 to-black/15" />
+
+                {/* readability overlays */}
+                <div className="absolute inset-0 bg-gradient-to-r from-black/90 via-black/62 to-black/25" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/65 via-transparent to-black/15" />
+                <div className="absolute left-0 top-0 h-full w-[62%] bg-black/20 blur-3xl" />
 
                 <div className="relative h-full pt-20">
                     <div className={`${NAV_CONTAINER} h-full flex items-center`}>
                         <div className="text-left w-full max-w-[42rem]">
-                            <p className="mb-4 inline-flex rounded-full border border-white/20 bg-white/10 px-4 py-2 text-sm font-semibold text-white/90 backdrop-blur">
-                                Houston-area fleet service • mobile repair • DOT support
+                            <p className="mb-4 text-sm sm:text-base font-semibold text-green-300">
+                                Houston-based fleet service with mobile support across Texas
                             </p>
 
-                            <h1 className="text-white font-extrabold leading-[1.03] tracking-tight text-4xl sm:text-5xl lg:text-6xl xl:text-[3.55rem]">
+                            <h1 className="text-white font-extrabold leading-[1.03] tracking-tight text-4xl sm:text-5xl lg:text-6xl xl:text-[3.55rem] drop-shadow-[0_0.2rem_1rem_rgba(0,0,0,0.55)]">
                                 Heavy-Duty Trailer Repair & Fleet Maintenance
                             </h1>
 
-                            <p className="mt-5 text-white/90 text-base sm:text-lg leading-relaxed max-w-[40rem]">
+                            <p className="mt-5 text-white/95 text-base sm:text-lg leading-relaxed max-w-[40rem] drop-shadow-[0_0.15rem_0.7rem_rgba(0,0,0,0.65)]">
                                 Mobile fleet service, DOT-related repairs, preventive maintenance, roadside assistance,
-                                and curtain-side solutions for commercial fleets.
+                                and curtain-side manufacturing and repair for commercial fleets.
                             </p>
 
                             <div className="mt-8 flex flex-col sm:flex-row gap-3">
@@ -134,7 +184,7 @@ const Home = () => {
                     </div>
 
                     <div className="absolute bottom-0 left-0 right-0">
-                        <div className="bg-black/40 backdrop-blur-sm border-t border-white/10">
+                        <div className="bg-black/45 backdrop-blur-sm border-t border-white/10">
                             <div className={`${NAV_CONTAINER} py-4`}>
                                 <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-6 text-white/90 text-sm font-medium">
                                     <span>Mobile fleet service</span>
@@ -156,6 +206,7 @@ const Home = () => {
                 <div className="pointer-events-none absolute inset-0">
                     <div className="absolute -top-40 left-1/4 h-[32rem] w-[32rem] rounded-full bg-green-500/10 blur-3xl" />
                     <div className="absolute -bottom-40 right-0 h-[30rem] w-[30rem] rounded-full bg-white/5 blur-3xl" />
+                    <div className="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
                 </div>
 
                 <div className={`${PAGE_CONTAINER} relative py-16`}>
@@ -165,7 +216,7 @@ const Home = () => {
                             The main services fleets need to keep trailers working.
                         </h2>
                         <p className="mt-4 text-slate-300 text-base sm:text-lg leading-relaxed">
-                            South Trailers supports commercial fleets with repair, maintenance, mobile service,
+                            South Trailers supports commercial fleets with trailer repair, maintenance, mobile service,
                             DOT-related work, and emergency response.
                         </p>
                     </div>
@@ -192,7 +243,7 @@ const Home = () => {
                 <div className="pointer-events-none absolute inset-0">
                     <div className="absolute -left-40 top-10 h-[32rem] w-[32rem] rounded-full bg-green-500/10 blur-3xl" />
                     <div className="absolute right-0 bottom-0 h-[32rem] w-[32rem] rounded-full bg-slate-900/5 blur-3xl" />
-                    <div className="absolute inset-0 opacity-[0.035] flex items-center justify-center">
+                    <div className="absolute inset-0 opacity-[0.03] flex items-center justify-center">
                         <img
                             src="/images/Banners/South_Trailers_CMYK.png"
                             alt=""
@@ -225,25 +276,16 @@ const Home = () => {
                         </div>
 
                         <div className="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-5">
-                            {[
-                                "Fleet yards",
-                                "Warehouses",
-                                "Trucking terminals",
-                                "Distribution centers",
-                                "Customer facilities",
-                                "Emergency field support",
-                            ].map((item) => (
+                            {mobileLocations.map((item) => (
                                 <div
-                                    key={item}
-                                    className="rounded-2xl border border-slate-200 bg-white/80 p-6 shadow-sm hover:-translate-y-1 hover:shadow-md transition"
+                                    key={item.title}
+                                    className="rounded-2xl border border-slate-200 bg-white/85 p-6 shadow-sm hover:-translate-y-1 hover:shadow-md transition"
                                 >
                                     <div className="h-10 w-10 rounded-xl bg-green-100 text-green-700 flex items-center justify-center font-bold">
                                         ✓
                                     </div>
-                                    <p className="mt-4 font-bold text-slate-900">{item}</p>
-                                    <p className="mt-2 text-sm text-slate-600">
-                                        Service focused on uptime, safety, and getting equipment back to work.
-                                    </p>
+                                    <p className="mt-4 font-bold text-slate-900">{item.title}</p>
+                                    <p className="mt-2 text-sm text-slate-600 leading-relaxed">{item.desc}</p>
                                 </div>
                             ))}
                         </div>
@@ -252,37 +294,55 @@ const Home = () => {
             </section>
 
             {/* DOT / RECURRING FLEET WORK */}
-            <section className="bg-white">
-                <div className={`${PAGE_CONTAINER} py-16`}>
-                    <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-                        <div className="lg:col-span-6">
+            <section className="relative overflow-hidden bg-white">
+                <div className="pointer-events-none absolute inset-0">
+                    <div className="absolute left-[-12rem] top-[-8rem] h-[28rem] w-[28rem] rounded-full bg-green-500/8 blur-3xl" />
+                    <div className="absolute right-[-10rem] bottom-[-10rem] h-[30rem] w-[30rem] rounded-full bg-slate-900/6 blur-3xl" />
+                </div>
+
+                <div className={`${PAGE_CONTAINER} relative py-16`}>
+                    <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+                        <div className="lg:col-span-5">
                             <p className="text-green-700 font-semibold">DOT work becomes repair work</p>
                             <h2 className="mt-2 text-4xl sm:text-5xl font-extrabold tracking-tight text-slate-900">
                                 Inspections, repairs, and maintenance under one fleet service path.
                             </h2>
                         </div>
 
-                        <div className="lg:col-span-6">
-                            <p className="text-slate-600 text-lg leading-relaxed">
-                                DOT inspections often uncover repair needs fleets must handle quickly: lighting,
-                                suspension, airbags, roof issues, structural corrections, brake-related work, and
-                                preventive maintenance opportunities.
-                            </p>
+                        <div className="lg:col-span-7">
+                            <div className="rounded-3xl border border-slate-200 bg-slate-50/80 p-6 sm:p-8 shadow-sm">
+                                <p className="text-slate-700 text-lg leading-relaxed">
+                                    DOT inspections often uncover repair needs fleets must handle quickly. The value is
+                                    not only the inspection. The value is identifying issues and getting the trailer
+                                    corrected before it costs more downtime.
+                                </p>
 
-                            <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-3">
-                                {[
-                                    "Annual DOT inspections",
-                                    "Compliance-related repairs",
-                                    "Preventive maintenance",
-                                    "Recurring fleet support",
-                                ].map((item) => (
-                                    <div
-                                        key={item}
-                                        className="rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm font-semibold text-slate-800"
+                                <div className="mt-7 grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                    {dotItems.map((item) => (
+                                        <div
+                                            key={item.title}
+                                            className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm"
+                                        >
+                                            <p className="font-bold text-slate-900">{item.title}</p>
+                                            <p className="mt-2 text-sm text-slate-600 leading-relaxed">{item.desc}</p>
+                                        </div>
+                                    ))}
+                                </div>
+
+                                <div className="mt-7 flex flex-col sm:flex-row gap-3">
+                                    <Link
+                                        to="/services"
+                                        className="inline-flex justify-center items-center px-6 py-3 rounded-xl bg-slate-900 text-white font-semibold hover:bg-slate-800 transition"
                                     >
-                                        {item}
-                                    </div>
-                                ))}
+                                        View Fleet Services
+                                    </Link>
+                                    <Link
+                                        to="/contact"
+                                        className="inline-flex justify-center items-center px-6 py-3 rounded-xl bg-white text-slate-900 font-semibold border border-slate-200 hover:bg-slate-50 transition"
+                                    >
+                                        Request DOT Support
+                                    </Link>
+                                </div>
                             </div>
                         </div>
                     </div>
