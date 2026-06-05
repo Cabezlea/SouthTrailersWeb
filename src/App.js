@@ -7,6 +7,7 @@ import Services from "./pages/Services";
 import Products from "./pages/Products";
 import Shipping from "./pages/Shipping";
 import Contact from "./pages/Contact";
+import ServiceDetail from "./pages/ServiceDetail";
 
 function App() {
     return (
@@ -15,6 +16,7 @@ function App() {
             <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/services" element={<Services />} />
+                <Route path="/services/:slug" element={<ServiceDetail />} />
                 <Route path="/products" element={<Products />} />
                 <Route path="/shipping" element={<Shipping />} />
                 <Route path="/contact" element={<Contact />} />

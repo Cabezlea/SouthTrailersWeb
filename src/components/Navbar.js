@@ -24,10 +24,10 @@ const Navbar = () => {
 
     // ===== EASY TWEAKS (sizes) =====
     const NAV_TEXT = "text-[16px] md:text-[15px]";
-    const DROPDOWN_WIDE = "w-[280px]";
+    const DROPDOWN_WIDE = "w-[350px]";
     const DROPDOWN_MED = "w-[240px]";
     const DROPDOWN_NARROW = "w-[230px]";
-    const DROPDOWN_ITEM = "px-4 py-3"; // more vertical space
+    const DROPDOWN_ITEM = "px-4 py-3";
     // ===============================
 
     const linkBase = `relative ${NAV_TEXT} font-semibold tracking-tight transition transform`;
@@ -45,7 +45,9 @@ const Navbar = () => {
                     : "text-white/90 hover:text-white",
             "hover:-translate-y-[1px]",
             "after:content-[''] after:absolute after:left-0 after:-bottom-1 after:h-[2px] after:w-0 after:transition-all after:duration-200",
-            isSolid ? "after:bg-green-600 hover:after:w-full" : "after:bg-white/80 hover:after:w-full",
+            isSolid
+                ? "after:bg-green-600 hover:after:w-full"
+                : "after:bg-white/80 hover:after:w-full",
         ].join(" ");
 
     const dropdownItem =
@@ -65,7 +67,7 @@ const Navbar = () => {
     return (
         <header
             className={[
-                "fixed top-0 left-0 w-full z-50", // FIXED on top
+                "fixed top-0 left-0 w-full z-50",
                 isHome
                     ? scrolled
                         ? "bg-black/35 backdrop-blur border-b border-white/10"
@@ -97,14 +99,46 @@ const Navbar = () => {
 
                         <div className={dropdownWrap}>
                             <Panel widthClass={DROPDOWN_WIDE}>
-                                <Link to="/services#mobile" className={dropdownItem}>
-                                    Mobile Trailer Service
+                                <Link
+                                    to="/services/trailer-repair-fleet-maintenance"
+                                    className={dropdownItem}
+                                >
+                                    Trailer Repair & Fleet Maintenance
                                 </Link>
-                                <Link to="/services#curtain" className={dropdownItem}>
-                                    Curtain Side Services
+
+                                <Link
+                                    to="/services/mobile-fleet-service"
+                                    className={dropdownItem}
+                                >
+                                    Mobile Fleet Service
                                 </Link>
-                                <Link to="/shipping" className={dropdownItem}>
-                                    Shipping (Curtains & Parts)
+
+                                <Link
+                                    to="/services/in-shop-trailer-service"
+                                    className={dropdownItem}
+                                >
+                                    In-Shop Trailer Service
+                                </Link>
+
+                                <Link
+                                    to="/services/dot-pm-programs"
+                                    className={dropdownItem}
+                                >
+                                    DOT & PM Programs
+                                </Link>
+
+                                <Link
+                                    to="/services/roadside-assistance"
+                                    className={dropdownItem}
+                                >
+                                    Roadside Assistance
+                                </Link>
+
+                                <Link
+                                    to="/services/curtain-side-services"
+                                    className={dropdownItem}
+                                >
+                                    Curtain-Side Services
                                 </Link>
                             </Panel>
                         </div>
@@ -115,17 +149,21 @@ const Navbar = () => {
                         <NavLink to="/products" className={linkDesktop}>
                             Products
                         </NavLink>
+
                         <div className={dropdownWrap}>
                             <Panel widthClass={DROPDOWN_MED}>
                                 <Link to="/products" className={dropdownItem}>
                                     View All Parts
                                 </Link>
+
                                 <Link to="/products#hardware" className={dropdownItem}>
                                     Curtain Hardware
                                 </Link>
+
                                 <Link to="/products#tracks" className={dropdownItem}>
                                     Rails & Tracks
                                 </Link>
+
                                 <Link to="/products#buckles" className={dropdownItem}>
                                     Buckles / Straps / Hooks
                                 </Link>
@@ -138,14 +176,17 @@ const Navbar = () => {
                         <NavLink to="/shipping" className={linkDesktop}>
                             Shipping
                         </NavLink>
+
                         <div className={dropdownWrap}>
                             <Panel widthClass={DROPDOWN_NARROW}>
                                 <Link to="/shipping#curtains" className={dropdownItem}>
                                     Curtain Shipping
                                 </Link>
+
                                 <Link to="/shipping#parts" className={dropdownItem}>
                                     Parts Shipping
                                 </Link>
+
                                 <Link to="/shipping#quote" className={dropdownItem}>
                                     Request Shipping Quote
                                 </Link>
@@ -161,7 +202,9 @@ const Navbar = () => {
                 <button
                     className={[
                         "md:hidden inline-flex items-center justify-center w-11 h-11 rounded-lg",
-                        isSolid ? "border border-gray-200 text-gray-900" : "border border-white/30 text-white",
+                        isSolid
+                            ? "border border-gray-200 text-gray-900"
+                            : "border border-white/30 text-white",
                     ].join(" ")}
                     onClick={() => setMenuOpen((v) => !v)}
                     aria-label="Toggle menu"
@@ -180,31 +223,68 @@ const Navbar = () => {
                         <NavLink to="/services" className="text-gray-900 font-semibold text-[16px]">
                             Services
                         </NavLink>
+
                         <div className="pl-3 flex flex-col gap-3 text-sm">
-                            <Link to="/services#mobile" className="text-gray-700 hover:text-green-700">
-                                Mobile Trailer Service
+                            <Link
+                                to="/services/trailer-repair-fleet-maintenance"
+                                className="text-gray-700 hover:text-green-700"
+                            >
+                                Trailer Repair & Fleet Maintenance
                             </Link>
-                            <Link to="/services#curtain" className="text-gray-700 hover:text-green-700">
-                                Curtain Side Services
+
+                            <Link
+                                to="/services/mobile-fleet-service"
+                                className="text-gray-700 hover:text-green-700"
+                            >
+                                Mobile Fleet Service
                             </Link>
-                            <Link to="/shipping" className="text-gray-700 hover:text-green-700">
-                                Shipping (Curtains & Parts)
+
+                            <Link
+                                to="/services/in-shop-trailer-service"
+                                className="text-gray-700 hover:text-green-700"
+                            >
+                                In-Shop Trailer Service
+                            </Link>
+
+                            <Link
+                                to="/services/dot-pm-programs"
+                                className="text-gray-700 hover:text-green-700"
+                            >
+                                DOT & PM Programs
+                            </Link>
+
+                            <Link
+                                to="/services/roadside-assistance"
+                                className="text-gray-700 hover:text-green-700"
+                            >
+                                Roadside Assistance
+                            </Link>
+
+                            <Link
+                                to="/services/curtain-side-services"
+                                className="text-gray-700 hover:text-green-700"
+                            >
+                                Curtain-Side Services
                             </Link>
                         </div>
 
                         <NavLink to="/products" className="text-gray-900 font-semibold text-[16px]">
                             Products
                         </NavLink>
+
                         <div className="pl-3 flex flex-col gap-3 text-sm">
                             <Link to="/products" className="text-gray-700 hover:text-green-700">
                                 View All Parts
                             </Link>
+
                             <Link to="/products#hardware" className="text-gray-700 hover:text-green-700">
                                 Curtain Hardware
                             </Link>
+
                             <Link to="/products#tracks" className="text-gray-700 hover:text-green-700">
                                 Rails & Tracks
                             </Link>
+
                             <Link to="/products#buckles" className="text-gray-700 hover:text-green-700">
                                 Buckles / Straps / Hooks
                             </Link>
@@ -213,13 +293,16 @@ const Navbar = () => {
                         <NavLink to="/shipping" className="text-gray-900 font-semibold text-[16px]">
                             Shipping
                         </NavLink>
+
                         <div className="pl-3 flex flex-col gap-3 text-sm">
                             <Link to="/shipping#curtains" className="text-gray-700 hover:text-green-700">
                                 Curtain Shipping
                             </Link>
+
                             <Link to="/shipping#parts" className="text-gray-700 hover:text-green-700">
                                 Parts Shipping
                             </Link>
+
                             <Link to="/shipping#quote" className="text-gray-700 hover:text-green-700">
                                 Request Shipping Quote
                             </Link>
