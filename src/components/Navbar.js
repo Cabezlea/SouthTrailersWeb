@@ -124,7 +124,7 @@ const Navbar = () => {
                                     to="/services/dot-pm-programs"
                                     className={dropdownItem}
                                 >
-                                    DOT & PM Programs
+                                    DOT & PM Inspections
                                 </Link>
 
                                 <Link
@@ -250,7 +250,7 @@ const Navbar = () => {
                                 to="/services/dot-pm-programs"
                                 className="text-gray-700 hover:text-green-700"
                             >
-                                DOT & PM Programs
+                                DOT & PM Inspections
                             </Link>
 
                             <Link

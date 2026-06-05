@@ -113,9 +113,9 @@ export const services = [
         slug: "dot-pm-programs",
         navLabel: "DOT & PM Programs",
         kicker: "Compliance & Maintenance",
-        title: "DOT & PM Programs",
+        title: "DOT & PM Inspections",
         short:
-            "DOT compliance support and preventive maintenance programs for recurring fleet readiness.",
+            "DOT compliance support and preventive maintenance inspections for recurring fleet readiness.",
         hero:
             "DOT and PM are different, but they belong together as inspection-driven fleet services. DOT focuses on compliance. PM focuses on prevention.",
         image: "/images/Banners/South_Trailers_CMYK.jpg",
@@ -133,7 +133,7 @@ export const services = [
             {
                 title: "Built for recurring fleet cycles",
                 body:
-                    "DOT and PM programs are important because they create structure: annual DOT cycles, quarterly PM schedules, recurring mobile visits, and preferred vendor relationships.",
+                    "DOT and PM inspections are important because they create structure: annual DOT cycles, quarterly PM schedules, recurring mobile visits, and preferred vendor relationships.",
             },
         ],
         bullets: [

@@ -53,7 +53,7 @@ const Services = () => {
                         </h1>
 
                         <p className="mt-5 max-w-3xl text-white/90 text-base sm:text-lg leading-relaxed">
-                            Trailer repair, fleet maintenance, mobile service, in-shop repair, DOT & PM programs,
+                            Trailer repair, fleet maintenance, mobile service, in-shop repair, DOT & PM inspections,
                             roadside assistance, and curtain-side support for commercial fleets in the Houston area.
                         </p>
 
@@ -211,7 +211,7 @@ const Services = () => {
                                             desc: "Preventive checks to reduce surprise breakdowns.",
                                         },
                                         {
-                                            title: "Mobile service programs",
+                                            title: "Mobile service inspections",
                                             desc: "Scheduled on-site fleet visits for yards and facilities.",
                                         },
                                         {
