@@ -5,17 +5,19 @@ import { services } from "../data/servicesData";
 const Services = () => {
     const NAV_CONTAINER = "w-full px-5 sm:px-8 xl:px-14";
     const PAGE_CONTAINER = "max-w-7xl mx-auto px-5 sm:px-8 xl:px-14";
+    const safeUrl = (p) => encodeURI(p);
 
     const priorityServices = services.slice(0, 4);
     const secondaryServices = services.slice(4);
 
     return (
         <main>
-            {/* HERO — no homepage banner */}
+            {/* ================= HERO ================= */}
             <section className="relative overflow-hidden bg-slate-950">
                 <div className="pointer-events-none absolute inset-0">
                     <div className="absolute -top-48 left-1/4 h-[34rem] w-[34rem] rounded-full bg-green-500/15 blur-3xl" />
                     <div className="absolute -bottom-48 right-[-10rem] h-[34rem] w-[34rem] rounded-full bg-white/10 blur-3xl" />
+
                     <div className="absolute inset-0 opacity-[0.045] flex items-center justify-center">
                         <img
                             src="/images/Banners/South_Trailers_CMYK.png"
@@ -24,6 +26,8 @@ const Services = () => {
                             draggable={false}
                         />
                     </div>
+
+                    <div className="absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-950/95 to-slate-950/80" />
                 </div>
 
                 <div className={`${NAV_CONTAINER} relative py-24 sm:py-28 lg:py-32`}>
@@ -36,7 +40,7 @@ const Services = () => {
                             Services built around fleet uptime.
                         </h1>
 
-                        <p className="mt-5 max-w-3xl text-white/85 text-base sm:text-lg leading-relaxed">
+                        <p className="mt-5 max-w-3xl text-white/90 text-base sm:text-lg leading-relaxed">
                             Trailer repair, fleet maintenance, mobile service, in-shop repair, DOT & PM programs,
                             roadside assistance, and curtain-side support for commercial fleets in the Houston area.
                         </p>
@@ -60,70 +64,179 @@ const Services = () => {
                 </div>
             </section>
 
-            {/* MAIN SERVICE PRIORITIES */}
+            {/* ================= INTRO ================= */}
             <section className="relative overflow-hidden bg-slate-50">
                 <div className="pointer-events-none absolute inset-0">
                     <div className="absolute -top-40 left-1/2 h-[32rem] w-[32rem] -translate-x-1/2 rounded-full bg-green-500/10 blur-3xl" />
                     <div className="absolute -bottom-48 right-[-8rem] h-[32rem] w-[32rem] rounded-full bg-slate-900/10 blur-3xl" />
+                    <div className="absolute inset-0 opacity-[0.03] flex items-center justify-center">
+                        <img
+                            src="/images/Banners/South_Trailers_CMYK.png"
+                            alt=""
+                            className="w-[60rem] max-w-none rotate-[-12deg] select-none"
+                            draggable={false}
+                        />
+                    </div>
                 </div>
 
                 <div className={`${PAGE_CONTAINER} relative py-16`}>
                     <div className="max-w-3xl">
                         <p className="text-green-700 font-semibold">Primary service lanes</p>
+
                         <h2 className="mt-3 text-4xl sm:text-5xl font-extrabold tracking-tight text-slate-900">
                             Clear services for how fleets actually operate.
                         </h2>
+
                         <p className="mt-4 text-slate-600 text-base sm:text-lg leading-relaxed">
-                            Trailer Repair & Fleet Maintenance is the umbrella. The other services explain how the work is delivered:
+                            Trailer Repair & Fleet Maintenance is the umbrella. The service pages explain how the work is delivered:
                             mobile, in-shop, compliance programs, roadside, and curtain-side specialty work.
                         </p>
                     </div>
 
-                    <div className="mt-10 grid grid-cols-1 md:grid-cols-2 gap-6">
+                    {/* PRIMARY SERVICES */}
+                    <div className="mt-10 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-5">
                         {priorityServices.map((service, index) => (
                             <Link
                                 key={service.slug}
                                 to={`/services/${service.slug}`}
-                                className="group rounded-3xl border border-slate-200 bg-white/80 backdrop-blur shadow-sm p-6 sm:p-7 hover:-translate-y-1 hover:shadow-md transition"
+                                className="group h-full rounded-2xl border border-slate-200 bg-white/85 backdrop-blur shadow-sm overflow-hidden hover:-translate-y-1 hover:shadow-md transition"
                             >
-                                <div className="flex items-start justify-between gap-5">
-                                    <div className="h-11 w-11 shrink-0 rounded-xl bg-green-100 text-green-700 flex items-center justify-center font-extrabold">
-                                        0{index + 1}
-                                    </div>
-
-                                    <span className="text-slate-400 group-hover:text-green-600 transition text-2xl">
-                    →
-                  </span>
+                                <div className="aspect-[16/10] bg-slate-100 overflow-hidden">
+                                    <img
+                                        src={safeUrl(service.image)}
+                                        alt={service.title}
+                                        className="h-full w-full object-cover transition duration-500 group-hover:scale-[1.03]"
+                                        loading="lazy"
+                                    />
                                 </div>
 
-                                <p className="mt-6 text-xs font-bold tracking-[0.18em] uppercase text-green-700">
-                                    {service.kicker}
-                                </p>
+                                <div className="p-6 flex flex-col min-h-[17rem]">
+                                    <div className="flex items-center justify-between gap-4">
+                                        <div className="h-10 w-10 rounded-xl bg-green-100 text-green-700 flex items-center justify-center font-extrabold">
+                                            0{index + 1}
+                                        </div>
 
-                                <h3 className="mt-2 text-2xl font-extrabold text-slate-900">
-                                    {service.title}
-                                </h3>
+                                        <span className="text-slate-400 group-hover:text-green-600 transition text-2xl">
+                                            →
+                                        </span>
+                                    </div>
 
-                                <p className="mt-3 text-slate-600 leading-relaxed">
-                                    {service.short}
-                                </p>
+                                    <p className="mt-5 text-xs font-bold tracking-[0.18em] uppercase text-green-700">
+                                        {service.kicker}
+                                    </p>
+
+                                    <h3 className="mt-2 text-xl font-extrabold text-slate-900 leading-tight">
+                                        {service.title}
+                                    </h3>
+
+                                    <p className="mt-3 text-sm text-slate-600 leading-relaxed">
+                                        {service.short}
+                                    </p>
+
+                                    <p className="mt-auto pt-5 text-sm font-semibold text-green-700">
+                                        View service
+                                    </p>
+                                </div>
                             </Link>
                         ))}
                     </div>
                 </div>
             </section>
 
-            {/* SECONDARY / SPECIALTY SERVICES */}
+            {/* ================= FLEET PROGRAM ================= */}
             <section className="relative overflow-hidden bg-white">
+                <div className="pointer-events-none absolute inset-0">
+                    <div className="absolute left-[-12rem] top-[-8rem] h-[28rem] w-[28rem] rounded-full bg-green-500/10 blur-3xl" />
+                    <div className="absolute right-[-10rem] bottom-[-10rem] h-[30rem] w-[30rem] rounded-full bg-slate-900/6 blur-3xl" />
+                </div>
+
+                <div className={`${PAGE_CONTAINER} relative py-16`}>
+                    <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+                        <div className="lg:col-span-5">
+                            <p className="text-green-700 font-semibold">More than one-off repair</p>
+
+                            <h2 className="mt-2 text-4xl sm:text-5xl font-extrabold tracking-tight text-slate-900">
+                                Built for recurring fleet relationships.
+                            </h2>
+
+                            <p className="mt-4 text-slate-600 text-base sm:text-lg leading-relaxed">
+                                The service model is designed to move from single repairs into structured maintenance support.
+                            </p>
+                        </div>
+
+                        <div className="lg:col-span-7">
+                            <div className="rounded-3xl border border-slate-200 bg-slate-50/80 p-6 sm:p-8 shadow-sm">
+                                <p className="text-slate-700 text-lg leading-relaxed">
+                                    DOT findings, PM inspections, roadside calls, and mobile repairs all point to the same goal:
+                                    a consistent fleet maintenance relationship. South Trailers is positioned as a service partner,
+                                    not just a vendor called after equipment fails.
+                                </p>
+
+                                <div className="mt-7 grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                    {[
+                                        {
+                                            title: "Annual DOT cycles",
+                                            desc: "Inspection and repair support tied to compliance readiness.",
+                                        },
+                                        {
+                                            title: "PM schedules",
+                                            desc: "Preventive checks to reduce surprise breakdowns.",
+                                        },
+                                        {
+                                            title: "Mobile service programs",
+                                            desc: "Scheduled on-site fleet visits for yards and facilities.",
+                                        },
+                                        {
+                                            title: "Preferred vendor support",
+                                            desc: "A long-term service relationship with better response.",
+                                        },
+                                    ].map((item) => (
+                                        <div
+                                            key={item.title}
+                                            className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm"
+                                        >
+                                            <p className="font-bold text-slate-900">{item.title}</p>
+                                            <p className="mt-2 text-sm text-slate-600 leading-relaxed">
+                                                {item.desc}
+                                            </p>
+                                        </div>
+                                    ))}
+                                </div>
+
+                                <div className="mt-7 flex flex-col sm:flex-row gap-3">
+                                    <Link
+                                        to="/contact"
+                                        className="inline-flex justify-center items-center px-6 py-3 rounded-xl bg-slate-900 text-white font-semibold hover:bg-slate-800 transition"
+                                    >
+                                        Request Fleet Program
+                                    </Link>
+
+                                    <a
+                                        href="tel:+19367779615"
+                                        className="inline-flex justify-center items-center px-6 py-3 rounded-xl bg-white text-slate-900 font-semibold border border-slate-200 hover:bg-slate-50 transition"
+                                    >
+                                        Call (936) 777-9615
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            {/* ================= SECONDARY SERVICES ================= */}
+            <section className="relative overflow-hidden bg-slate-50">
                 <div className={`${PAGE_CONTAINER} py-16`}>
                     <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
                         <div className="lg:col-span-5">
                             <p className="text-green-700 font-semibold">Additional support</p>
+
                             <h2 className="mt-3 text-4xl sm:text-5xl font-extrabold tracking-tight text-slate-900">
                                 Emergency support and curtain-side specialty work.
                             </h2>
+
                             <p className="mt-4 text-slate-600 text-base sm:text-lg leading-relaxed">
-                                Roadside assistance and curtain-side services stay visible, but they do not replace the core identity:
+                                Roadside assistance and curtain-side services stay visible, while the main identity remains
                                 trailer repair and fleet maintenance.
                             </p>
                         </div>
@@ -133,24 +246,43 @@ const Services = () => {
                                 <Link
                                     key={service.slug}
                                     to={`/services/${service.slug}`}
-                                    className="group rounded-2xl border border-slate-200 bg-slate-50/80 p-6 hover:bg-white hover:shadow-md transition"
+                                    className="group rounded-2xl border border-slate-200 bg-white/85 p-5 sm:p-6 hover:bg-white hover:shadow-md transition"
                                 >
-                                    <div className="flex items-start justify-between gap-5">
-                                        <div>
-                                            <p className="text-xs font-bold tracking-[0.18em] uppercase text-green-700">
-                                                {service.kicker}
-                                            </p>
-                                            <h3 className="mt-2 text-2xl font-extrabold text-slate-900">
-                                                {service.title}
-                                            </h3>
-                                            <p className="mt-3 text-slate-600 leading-relaxed">
-                                                {service.short}
-                                            </p>
+                                    <div className="flex flex-col sm:flex-row gap-5 items-start">
+                                        <div className="w-full sm:w-44 shrink-0 rounded-2xl overflow-hidden bg-slate-100 aspect-[16/10]">
+                                            <img
+                                                src={safeUrl(service.image)}
+                                                alt={service.title}
+                                                className="h-full w-full object-cover transition duration-500 group-hover:scale-[1.03]"
+                                                loading="lazy"
+                                            />
                                         </div>
 
-                                        <span className="text-slate-400 group-hover:text-green-600 transition text-2xl">
-                      →
-                    </span>
+                                        <div className="flex-1">
+                                            <div className="flex items-start justify-between gap-5">
+                                                <div>
+                                                    <p className="text-xs font-bold tracking-[0.18em] uppercase text-green-700">
+                                                        {service.kicker}
+                                                    </p>
+
+                                                    <h3 className="mt-2 text-2xl font-extrabold text-slate-900">
+                                                        {service.title}
+                                                    </h3>
+
+                                                    <p className="mt-3 text-slate-600 leading-relaxed">
+                                                        {service.short}
+                                                    </p>
+                                                </div>
+
+                                                <span className="hidden sm:block text-slate-400 group-hover:text-green-600 transition text-2xl">
+                                                    →
+                                                </span>
+                                            </div>
+
+                                            <p className="mt-5 text-sm font-semibold text-green-700">
+                                                View service
+                                            </p>
+                                        </div>
                                     </div>
                                 </Link>
                             ))}
@@ -159,7 +291,7 @@ const Services = () => {
                 </div>
             </section>
 
-            {/* FLEET PROGRAM CTA */}
+            {/* ================= CTA ================= */}
             <section className="relative overflow-hidden bg-slate-950">
                 <div className="pointer-events-none absolute inset-0">
                     <div className="absolute -top-40 right-[-10rem] h-[32rem] w-[32rem] rounded-full bg-green-500/20 blur-3xl" />
@@ -169,13 +301,15 @@ const Services = () => {
                 <div className={`${PAGE_CONTAINER} relative py-16`}>
                     <div className="rounded-3xl border border-white/10 bg-white/[0.06] backdrop-blur p-6 sm:p-8 lg:p-10 flex flex-col lg:flex-row lg:items-center lg:justify-between gap-8">
                         <div className="max-w-3xl">
-                            <p className="text-green-400 font-semibold">Recurring fleet support</p>
+                            <p className="text-green-400 font-semibold">Fleet maintenance support</p>
+
                             <h2 className="mt-3 text-3xl sm:text-4xl font-extrabold tracking-tight text-white">
-                                Built for preferred vendor relationships, not random one-off repairs.
+                                Need service scheduled?
                             </h2>
+
                             <p className="mt-4 text-slate-300 leading-relaxed">
-                                Ask about PM schedules, annual DOT cycles, mobile service programs, recurring fleet maintenance,
-                                and emergency support agreements.
+                                Send the unit number, trailer issue, location, and photos if available.
+                                We’ll respond with the next step.
                             </p>
                         </div>
 

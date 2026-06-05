@@ -17,7 +17,7 @@ const ServiceDetail = () => {
 
     return (
         <main>
-            {/* HERO — no bright image behind text */}
+            {/* HERO */}
             <section className="relative overflow-hidden bg-slate-950">
                 <div className="pointer-events-none absolute inset-0">
                     <div className="absolute -top-48 left-1/4 h-[34rem] w-[34rem] rounded-full bg-green-500/15 blur-3xl" />
@@ -30,6 +30,7 @@ const ServiceDetail = () => {
                             draggable={false}
                         />
                     </div>
+                    <div className="absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-950/95 to-slate-950/80" />
                 </div>
 
                 <div className={`${PAGE_CONTAINER} relative py-20 sm:py-24 lg:py-28`}>
@@ -121,7 +122,7 @@ const ServiceDetail = () => {
 
                         <aside className="lg:col-span-5 lg:sticky lg:top-28">
                             <div className="rounded-3xl border border-slate-200 bg-white/80 backdrop-blur shadow-sm overflow-hidden">
-                                <div className="aspect-[16/11] bg-slate-100">
+                                <div className="aspect-[16/10] bg-slate-100 overflow-hidden">
                                     <img
                                         src={safeUrl(service.image)}
                                         alt={service.title}
@@ -134,6 +135,7 @@ const ServiceDetail = () => {
                                     <h3 className="text-2xl font-extrabold text-slate-900">
                                         Schedule this service
                                     </h3>
+
                                     <p className="mt-3 text-slate-600 leading-relaxed">
                                         Send the trailer issue, unit number, location, and photos if available.
                                         We’ll respond with next steps.
