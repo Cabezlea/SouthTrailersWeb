@@ -22,13 +22,9 @@ const Navbar = () => {
         setMenuOpen(false);
     }, [pathname]);
 
-    // ===== EASY TWEAKS (sizes) =====
     const NAV_TEXT = "text-[16px] md:text-[15px]";
     const DROPDOWN_WIDE = "w-[350px]";
-    const DROPDOWN_MED = "w-[240px]";
-    const DROPDOWN_NARROW = "w-[230px]";
     const DROPDOWN_ITEM = "px-4 py-3";
-    // ===============================
 
     const linkBase = `relative ${NAV_TEXT} font-semibold tracking-tight transition transform`;
 
@@ -91,7 +87,6 @@ const Navbar = () => {
                         Home
                     </NavLink>
 
-                    {/* SERVICES */}
                     <div className="relative group">
                         <NavLink to="/services" className={linkDesktop}>
                             Services
@@ -138,57 +133,7 @@ const Navbar = () => {
                                     to="/services/curtain-side-services"
                                     className={dropdownItem}
                                 >
-                                    Curtain-Side Services
-                                </Link>
-                            </Panel>
-                        </div>
-                    </div>
-
-                    {/* PRODUCTS */}
-                    <div className="relative group">
-                        <NavLink to="/products" className={linkDesktop}>
-                            Products
-                        </NavLink>
-
-                        <div className={dropdownWrap}>
-                            <Panel widthClass={DROPDOWN_MED}>
-                                <Link to="/products" className={dropdownItem}>
-                                    View All Parts
-                                </Link>
-
-                                <Link to="/products#hardware" className={dropdownItem}>
-                                    Curtain Hardware
-                                </Link>
-
-                                <Link to="/products#tracks" className={dropdownItem}>
-                                    Rails & Tracks
-                                </Link>
-
-                                <Link to="/products#buckles" className={dropdownItem}>
-                                    Buckles / Straps / Hooks
-                                </Link>
-                            </Panel>
-                        </div>
-                    </div>
-
-                    {/* SHIPPING */}
-                    <div className="relative group">
-                        <NavLink to="/shipping" className={linkDesktop}>
-                            Shipping
-                        </NavLink>
-
-                        <div className={dropdownWrap}>
-                            <Panel widthClass={DROPDOWN_NARROW}>
-                                <Link to="/shipping#curtains" className={dropdownItem}>
-                                    Curtain Shipping
-                                </Link>
-
-                                <Link to="/shipping#parts" className={dropdownItem}>
-                                    Parts Shipping
-                                </Link>
-
-                                <Link to="/shipping#quote" className={dropdownItem}>
-                                    Request Shipping Quote
+                                    Side-Curtain Repair & Manufacturing
                                 </Link>
                             </Panel>
                         </div>
@@ -264,47 +209,7 @@ const Navbar = () => {
                                 to="/services/curtain-side-services"
                                 className="text-gray-700 hover:text-green-700"
                             >
-                                Curtain-Side Services
-                            </Link>
-                        </div>
-
-                        <NavLink to="/products" className="text-gray-900 font-semibold text-[16px]">
-                            Products
-                        </NavLink>
-
-                        <div className="pl-3 flex flex-col gap-3 text-sm">
-                            <Link to="/products" className="text-gray-700 hover:text-green-700">
-                                View All Parts
-                            </Link>
-
-                            <Link to="/products#hardware" className="text-gray-700 hover:text-green-700">
-                                Curtain Hardware
-                            </Link>
-
-                            <Link to="/products#tracks" className="text-gray-700 hover:text-green-700">
-                                Rails & Tracks
-                            </Link>
-
-                            <Link to="/products#buckles" className="text-gray-700 hover:text-green-700">
-                                Buckles / Straps / Hooks
-                            </Link>
-                        </div>
-
-                        <NavLink to="/shipping" className="text-gray-900 font-semibold text-[16px]">
-                            Shipping
-                        </NavLink>
-
-                        <div className="pl-3 flex flex-col gap-3 text-sm">
-                            <Link to="/shipping#curtains" className="text-gray-700 hover:text-green-700">
-                                Curtain Shipping
-                            </Link>
-
-                            <Link to="/shipping#parts" className="text-gray-700 hover:text-green-700">
-                                Parts Shipping
-                            </Link>
-
-                            <Link to="/shipping#quote" className="text-gray-700 hover:text-green-700">
-                                Request Shipping Quote
+                                Side-Curtain Repair & Manufacturing
                             </Link>
                         </div>
 

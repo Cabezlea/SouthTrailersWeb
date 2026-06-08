@@ -73,7 +73,7 @@ const Home = () => {
     const servicePillars = [
         {
             title: "Trailer Repair & Fleet Maintenance",
-            desc: "Structural repairs, roof work, suspension, airbags, brakes, lighting, welding, landing gear, and preventive maintenance.",
+            desc: "Structural repairs, side-curtain manufacturing & repair, roof work, suspension, airbags, brakes, lighting, welding, landing gear, and preventive maintenance.",
         },
         {
             title: "Mobile Fleet Service",
