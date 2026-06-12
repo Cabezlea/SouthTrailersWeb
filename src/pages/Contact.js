@@ -2,14 +2,13 @@
 import { Link } from "react-router-dom";
 import { useMemo, useRef, useState, useCallback } from "react";
 
-/** Keep this OUTSIDE Contact so inputs don't get remounted / lose focus */
 const Field = ({ label, required, right, error, children }) => {
     return (
         <div className="block">
             <div className="flex items-end justify-between gap-3">
-        <span className="text-sm font-semibold text-slate-900">
-          {label} {required ? <span className="text-green-700">*</span> : null}
-        </span>
+                <span className="text-sm font-semibold text-slate-900">
+                    {label} {required ? <span className="text-green-700">*</span> : null}
+                </span>
                 {right ? <span className="text-xs text-slate-500">{right}</span> : null}
             </div>
 
@@ -33,20 +32,20 @@ const Contact = () => {
         () => ({
             phoneDisplay: "(936) 777-9615",
             phoneHref: "tel:+19367779615",
-            emailDisplay: "sales@southtrailers.com",
-            emailHref: "mailto:sales@southtrailers.com",
-            baseTitle: "Houston-based, serving nationwide",
-            baseLine: "On-site service available • inbound trailers welcome from anywhere",
+            emailDisplay: "Leandro.cabezas@southtrailers.com",
+            emailHref: "mailto:Leandro.cabezas@southtrailers.com",
+            baseTitle: "Houston-based, serving fleets across Texas",
+            baseLine: "Mobile service available 24/7 • in-shop repair subject to shop hours • inbound trailers welcome",
             hours: [
-                { label: "Mon–Fri", value: "8:00 AM – 6:00 PM" },
-                { label: "Sat", value: "9:00 AM – 2:00 PM" },
+                { label: "Mon–Fri", value: "8:00 AM – 5:00 PM" },
+                { label: "Sat", value: "8:00 AM – 2:00 PM" },
                 { label: "Sun", value: "Closed" },
             ],
         }),
         []
     );
 
-    const [intent, setIntent] = useState("quote"); // quote | talk | general
+    const [intent, setIntent] = useState("fleet"); // fleet | mobile | general
     const [toast, setToast] = useState(null);
     const toastTimerRef = useRef(null);
 
@@ -57,7 +56,7 @@ const Contact = () => {
         company: "",
         email: "",
         phone: "",
-        service: "Curtain Side Services",
+        service: "Trailer Repair & Fleet Maintenance",
         urgency: "Standard",
         message: "",
     });
@@ -75,7 +74,6 @@ const Contact = () => {
 
         setForm((p) => ({ ...p, [name]: value }));
 
-        // live clear that field's error
         setErrors((p) => {
             if (!p[name]) return p;
             const copy = { ...p };
@@ -84,20 +82,35 @@ const Contact = () => {
         });
     }, []);
 
-    /** Fix urgency behavior:
-     * - Talk => force urgent
-     * - Leaving talk => reset to Standard (only if it was the auto urgent)
-     * - Otherwise, keep what user chose
-     */
     const setIntentOnly = useCallback((next) => {
         setIntent(next);
 
         setForm((p) => {
             const autoUrgent = "Urgent (same / next day)";
-            const leavingTalk = p.urgency === autoUrgent && next !== "talk";
+            const leavingMobile = p.urgency === autoUrgent && next !== "mobile";
 
-            if (next === "talk") return { ...p, urgency: autoUrgent };
-            if (leavingTalk) return { ...p, urgency: "Standard" };
+            if (next === "mobile") {
+                return {
+                    ...p,
+                    service: "Mobile Fleet Service",
+                    urgency: autoUrgent,
+                };
+            }
+
+            if (next === "fleet") {
+                return {
+                    ...p,
+                    service: "Trailer Repair & Fleet Maintenance",
+                    urgency: leavingMobile ? "Standard" : p.urgency,
+                };
+            }
+
+            if (next === "general") {
+                return {
+                    ...p,
+                    urgency: leavingMobile ? "Standard" : p.urgency,
+                };
+            }
 
             return p;
         });
@@ -108,7 +121,7 @@ const Contact = () => {
     }, []);
 
     const heroQuote = useCallback(() => {
-        setIntentOnly("quote");
+        setIntentOnly("fleet");
         scrollToFormTop();
     }, [setIntentOnly, scrollToFormTop]);
 
@@ -146,13 +159,19 @@ const Contact = () => {
                 : "border-slate-200 bg-white hover:bg-slate-50 text-slate-900",
         ].join(" ");
 
-    const formTitle = intent === "general" ? "Send a message" : "Request a quote";
+    const formTitle =
+        intent === "mobile"
+            ? "Schedule mobile service"
+            : intent === "general"
+                ? "Send a message"
+                : "Request fleet service";
+
     const formSub =
-        intent === "talk"
-            ? "If you want it fast: call — we’ll coordinate immediately."
+        intent === "mobile"
+            ? "Send the trailer issue, location, and unit details so we can coordinate service."
             : intent === "general"
                 ? "Ask anything. We’ll respond with direction, options, and next steps."
-                : "Share details and we’ll respond with pricing and scheduling options.";
+                : "Share the trailer issue and we’ll respond with pricing, scheduling, or the next step.";
 
     return (
         <main className="bg-white">
@@ -167,7 +186,7 @@ const Contact = () => {
                 <div className={`${PAGE_CONTAINER} relative pt-14 pb-10`}>
                     <p className="inline-flex items-center gap-2 text-sm font-semibold text-green-700">
                         <span className="h-2 w-2 rounded-full bg-green-600" />
-                        Quotes • On-site service • Parts shipping
+                        Fleet service • Mobile support • DOT / PM • Roadside
                     </p>
 
                     <div className="mt-3">
@@ -175,7 +194,7 @@ const Contact = () => {
                             Contact South Trailers
                         </h1>
                         <p className="mt-3 max-w-2xl text-slate-600 text-base sm:text-lg">
-                            Choose how you want to connect — quote request, quick call, or a general question.
+                            Request fleet service, schedule mobile support, or send a general question.
                         </p>
 
                         <div className="mt-6 flex flex-col sm:flex-row gap-3">
@@ -184,7 +203,7 @@ const Contact = () => {
                                 onClick={heroQuote}
                                 className="inline-flex justify-center items-center px-6 py-3 rounded-xl bg-green-600 text-white font-semibold hover:bg-green-700 transition shadow-sm"
                             >
-                                Request a Quote
+                                Request Fleet Service
                             </button>
 
                             <a
@@ -206,28 +225,28 @@ const Contact = () => {
                         <button
                             type="button"
                             onClick={() => {
-                                setIntentOnly("quote");
+                                setIntentOnly("fleet");
                                 scrollToFormTop();
                             }}
-                            className={intentBtn("quote")}
+                            className={intentBtn("fleet")}
                         >
-                            <p className="text-sm font-extrabold">Request a quote</p>
-                            <p className={`mt-1 text-sm ${intent === "quote" ? "text-white/80" : "text-slate-600"}`}>
-                                Repairs, installs, curtains, parts, shipping.
+                            <p className="text-sm font-extrabold">Request fleet service</p>
+                            <p className={`mt-1 text-sm ${intent === "fleet" ? "text-white/80" : "text-slate-600"}`}>
+                                Trailer repair, PM, DOT, suspension, brakes, lighting.
                             </p>
                         </button>
 
                         <button
                             type="button"
                             onClick={() => {
-                                setIntentOnly("talk");
+                                setIntentOnly("mobile");
                                 scrollToFormTop();
                             }}
-                            className={intentBtn("talk")}
+                            className={intentBtn("mobile")}
                         >
-                            <p className="text-sm font-extrabold">Talk to us</p>
-                            <p className={`mt-1 text-sm ${intent === "talk" ? "text-white/80" : "text-slate-600"}`}>
-                                Quick answer or scheduling.
+                            <p className="text-sm font-extrabold">Schedule mobile service</p>
+                            <p className={`mt-1 text-sm ${intent === "mobile" ? "text-white/80" : "text-slate-600"}`}>
+                                Yard, warehouse, terminal, or field service.
                             </p>
                         </button>
 
@@ -241,7 +260,7 @@ const Contact = () => {
                         >
                             <p className="text-sm font-extrabold">General question</p>
                             <p className={`mt-1 text-sm ${intent === "general" ? "text-white/80" : "text-slate-600"}`}>
-                                You’re exploring or learning what we do.
+                                Ask about service options, timing, or next steps.
                             </p>
                         </button>
                     </div>
@@ -262,7 +281,6 @@ const Contact = () => {
                             <div className={`${cardBase} h-full p-6 sm:p-7 flex flex-col`}>
                                 <p className="text-lg font-extrabold text-slate-900">Direct contact</p>
 
-                                {/* phone + email */}
                                 <div className="mt-7 grid grid-cols-1 sm:grid-cols-2 gap-4">
                                     <a
                                         href={contact.phoneHref}
@@ -286,13 +304,11 @@ const Contact = () => {
                                     </a>
                                 </div>
 
-                                {/* base line */}
                                 <div className="mt-6 rounded-xl border border-slate-200 bg-white p-4">
                                     <p className="text-xs font-semibold text-slate-500">{contact.baseTitle}</p>
                                     <p className="mt-1 text-sm text-slate-600">{contact.baseLine}</p>
                                 </div>
 
-                                {/* hours */}
                                 <div className="mt-9">
                                     <p className="text-sm font-extrabold text-slate-900">Hours</p>
                                     <div className="mt-3 rounded-xl border border-slate-200 bg-white overflow-hidden">
@@ -307,7 +323,6 @@ const Contact = () => {
                                     </div>
                                 </div>
 
-                                {/* bottom CTA aligned sizing */}
                                 <div className="mt-auto pt-9">
                                     <a
                                         href={contact.phoneHref}
@@ -374,10 +389,12 @@ const Contact = () => {
 
                                         <Field label="What do you need?" required error={errors.service}>
                                             <select className={selectBase} name="service" value={form.service} onChange={onChange}>
-                                                <option>Curtain Side Services</option>
-                                                <option>Mechanical Trailer Services</option>
-                                                <option>Curtain / Parts Shipping</option>
-                                                <option>Parts Only</option>
+                                                <option>Trailer Repair & Fleet Maintenance</option>
+                                                <option>Mobile Fleet Service</option>
+                                                <option>In-Shop Trailer Service</option>
+                                                <option>DOT / PM Inspection</option>
+                                                <option>Roadside Assistance</option>
+                                                <option>Side-Curtain Repair & Manufacturing</option>
                                                 <option>Other</option>
                                             </select>
                                         </Field>
@@ -392,21 +409,20 @@ const Contact = () => {
                                         </Field>
 
                                         <div className="sm:col-span-2">
-                                            {/* removed the "details + measurements help" right text */}
                                             <Field label="Message" error={errors.message}>
-                        <textarea
-                            className={`${inputBase} min-h-[150px] resize-y`}
-                            name="message"
-                            value={form.message}
-                            onChange={onChange}
-                            placeholder="Example: 48' curtain. Damage near rear. Rollers bind. Need parts + labor estimate."
-                        />
+                                                <textarea
+                                                    className={`${inputBase} min-h-[150px] resize-y`}
+                                                    name="message"
+                                                    value={form.message}
+                                                    onChange={onChange}
+                                                    placeholder="Example: Unit #204 has lighting issues and airbag damage. Need mobile service at our yard in Houston. Photos available."
+                                                />
                                             </Field>
 
                                             <div className="mt-4 rounded-xl border border-slate-200 bg-white p-4">
-                                                <p className="text-xs font-semibold text-slate-500">Photos (optional)</p>
+                                                <p className="text-xs font-semibold text-slate-500">Photos / details</p>
                                                 <p className="mt-1 text-sm text-slate-600">
-                                                    You can send photos by text/email. Upload gets added when delivery is wired.
+                                                    Helpful info: unit number, trailer issue, location, urgency, and photos of visible damage.
                                                 </p>
                                             </div>
                                         </div>
@@ -441,16 +457,24 @@ const Contact = () => {
                                 <p className="text-lg font-extrabold text-slate-900">Quick answers</p>
                                 <div className="mt-4 space-y-4">
                                     <div className="rounded-xl border border-slate-200 bg-white p-4">
-                                        <p className="text-sm font-bold text-slate-900">Do you do on-site curtain repair?</p>
-                                        <p className="mt-1 text-sm text-slate-600">Yes — depending on location and job scope.</p>
+                                        <p className="text-sm font-bold text-slate-900">Do you offer mobile fleet service?</p>
+                                        <p className="mt-1 text-sm text-slate-600">
+                                            Yes — we can service trailers at yards, terminals, warehouses, and customer facilities.
+                                        </p>
                                     </div>
                                     <div className="rounded-xl border border-slate-200 bg-white p-4">
-                                        <p className="text-sm font-bold text-slate-900">Do you ship curtains and parts?</p>
-                                        <p className="mt-1 text-sm text-slate-600">Yes — parts and curtain solutions can ship.</p>
+                                        <p className="text-sm font-bold text-slate-900">Do you handle DOT and PM work?</p>
+                                        <p className="mt-1 text-sm text-slate-600">
+                                            Yes — DOT findings, PM inspections, and compliance-related repairs are part of the service path.
+                                        </p>
                                     </div>
                                     <div className="rounded-xl border border-slate-200 bg-white p-4">
-                                        <p className="text-sm font-bold text-slate-900">Can customers come from outside Houston?</p>
-                                        <p className="mt-1 text-sm text-slate-600">Yes — customers can send trailers from anywhere.</p>
+                                        <p className="text-sm font-bold text-slate-900">Do you handle side-curtain
+                                            systems?</p>
+                                        <p className="mt-1 text-sm text-slate-600">
+                                            Yes — repair, manufacturing, installation, rollers, rails, straps, and
+                                            hardware are part of our service line.
+                                        </p>
                                     </div>
                                 </div>
                             </div>
@@ -459,20 +483,24 @@ const Contact = () => {
                                 <p className="text-lg font-extrabold text-slate-900">What you get</p>
                                 <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4">
                                     <div className="rounded-2xl border border-slate-200 bg-slate-50 p-5 h-full">
-                                        <p className="text-sm font-extrabold text-slate-900">Fast turnaround</p>
-                                        <p className="mt-1 text-sm text-slate-600">Shop + on-site work focused on uptime.</p>
+                                        <p className="text-sm font-extrabold text-slate-900">Fleet uptime focus</p>
+                                        <p className="mt-1 text-sm text-slate-600">
+                                            Repair and maintenance support built around keeping trailers moving.
+                                        </p>
                                     </div>
                                     <div className="rounded-2xl border border-slate-200 bg-slate-50 p-5 h-full">
-                                        <p className="text-sm font-extrabold text-slate-900">Quality parts</p>
-                                        <p className="mt-1 text-sm text-slate-600">Hardware, rails, rollers, straps, hooks.</p>
+                                        <p className="text-sm font-extrabold text-slate-900">Mobile + in-shop</p>
+                                        <p className="mt-1 text-sm text-slate-600">
+                                            Service at your location or scheduled shop work when the job requires it.
+                                        </p>
                                     </div>
                                     <div className="rounded-2xl border border-slate-200 bg-slate-50 p-5 h-full">
-                                        <p className="text-sm font-extrabold text-slate-900">Clear quotes</p>
-                                        <p className="mt-1 text-sm text-slate-600">Straight pricing + scheduling options.</p>
+                                        <p className="text-sm font-extrabold text-slate-900">Recurring support</p>
+                                        <p className="mt-1 text-sm text-slate-600">
+                                            PM schedules, DOT cycles, mobile visits, and preferred vendor support.
+                                        </p>
                                     </div>
                                 </div>
-
-                                {/* removed the extra “Need a faster answer?” rectangle */}
                             </div>
                         </div>
                     </div>
