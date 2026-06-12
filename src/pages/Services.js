@@ -132,14 +132,14 @@ const Services = () => {
                                     <img
                                         src={safeUrl(service.image)}
                                         alt={service.title}
-                                        className="h-full w-full object-cover transition duration-500 group-hover:scale-[1.03]"
+                                        className={`h-full w-full object-cover ${service.imagePosition || "object-center"} transition duration-500 group-hover:scale-[1.03]`}
                                         loading="lazy"
                                     />
                                 </div>
 
                                 <div className="p-6 flex flex-col min-h-[18rem]">
                                     <div className="flex items-center justify-between gap-4">
-                                        <div className="h-10 w-10 rounded-xl bg-green-100 text-green-700 flex items-center justify-center font-extrabold">
+                                    <div className="h-10 w-10 rounded-xl bg-green-100 text-green-700 flex items-center justify-center font-extrabold">
                                             {String(index + 1).padStart(2, "0")}
                                         </div>
 

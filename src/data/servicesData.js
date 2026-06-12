@@ -10,7 +10,8 @@ export const services = [
             "The main service lane: repair, maintenance, and recurring support for commercial trailers and fleets.",
         hero:
             "South Trailers supports commercial fleets with trailer repair, preventive maintenance, compliance-related repairs, and recurring service programs built around uptime.",
-        image: "/images/Banners/South_Trailers_CMYK.jpg",
+        image: "/images/Services/S1.jpeg",
+        imagePosition: "object-[center_45%]",
         sections: [
             {
                 title: "Built for fleet uptime",
@@ -46,7 +47,8 @@ export const services = [
             "On-site trailer repair and maintenance at fleet yards, warehouses, terminals, and customer facilities.",
         hero:
             "Mobile fleet service is built for operations that cannot afford unnecessary downtime. We come to the fleet location and service trailers where they operate.",
-        image: "/images/Banners/South_Trailers_banner.png",
+        image: "/images/Services/S2.jpeg",
+        imagePosition: "object-[center_50%]",
         sections: [
             {
                 title: "Service at your location",
@@ -82,7 +84,8 @@ export const services = [
             "Scheduled trailer service at our location for jobs that need more time, tools, or controlled working conditions.",
         hero:
             "Not every job belongs in the field. In-shop service gives customers a scheduled option for trailers that need longer repair windows or controlled working conditions.",
-        image: "/images/Banners/South_Trailers_CMYK.png",
+        image: "/images/Services/S3.jpeg",
+        imagePosition: "object-[center_55%]",
         sections: [
             {
                 title: "For repairs that need more than a field visit",
@@ -118,7 +121,8 @@ export const services = [
             "DOT compliance support and preventive maintenance inspections for recurring fleet readiness.",
         hero:
             "DOT and PM are different, but they belong together as inspection-driven fleet services. DOT focuses on compliance. PM focuses on prevention.",
-        image: "/images/Banners/South_Trailers_CMYK.jpg",
+        image: "/images/Services/S5.JPG",
+        imagePosition: "object-[center_50%]",
         sections: [
             {
                 title: "DOT compliance support",
@@ -154,7 +158,8 @@ export const services = [
             "Emergency trailer repair and field support when trailer issues interrupt operations.",
         hero:
             "Roadside assistance is for urgent trailer issues that need fast response, practical repair, and operational judgment.",
-        image: "/images/Banners/ST.jpeg",
+        image: "/images/Services/S4.jpeg",
+        imagePosition: "object-[center_45%]",
         sections: [
             {
                 title: "Emergency trailer support",
@@ -191,6 +196,7 @@ export const services = [
         hero:
             "Curtain-side work remains a South Trailers specialty, but it now sits inside a broader trailer repair and fleet maintenance operation.",
         image: "/images/Banners/South_Trailers_banner.png",
+        imagePosition: "object-center",
         sections: [
             {
                 title: "Curtain-side manufacturing and repair",
@@ -213,7 +219,7 @@ export const services = [
             "Curtain repair and replacement",
             "Rollers, tracks, buckles, straps, and hardware",
             "Mobile or scheduled service depending on the job",
-            "Parts support through Products page",
+            "Curtain system support for commercial trailers",
         ],
         cta: "Schedule Curtain Service",
     },

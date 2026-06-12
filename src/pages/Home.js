@@ -10,19 +10,9 @@ const Home = () => {
     const videos = useMemo(
         () => [
             {
-                title: "Curtain Side Work",
-                desc: "Curtain-side repair, installation, and hardware work for commercial trailer equipment.",
-                src: "/images/Videos/Bolsillo.mov",
-            },
-            {
-                title: "PVC Strap Installation",
-                desc: "Component installation and curtain-side hardware work performed cleanly and correctly.",
-                src: "/images/Videos/Instalación de faja PVC.mov",
-            },
-            {
-                title: "Roller / Track Work",
-                desc: "Rollers, track alignment, and hardware work that keeps curtain systems moving properly.",
-                src: "/images/Videos/Instalación de rodamiento.mov",
+                title: "Structural Work & Trailer Repairs",
+                desc: "Welding, structural repair, and heavy-duty trailer work for commercial fleet equipment.",
+                src: "/images/Videos/Welding.MOV",
             },
         ],
         []
@@ -372,7 +362,7 @@ const Home = () => {
                         </Link>
                     </div>
 
-                    <div className="mt-10 grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div className="mt-10 grid grid-cols-1 max-w-4xl">
                         {videos.map((v, idx) => (
                             <div
                                 key={v.title}

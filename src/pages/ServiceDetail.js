@@ -88,7 +88,7 @@ const ServiceDetail = () => {
                                     <img
                                         src={safeUrl(service.image)}
                                         alt={service.title}
-                                        className="h-full w-full object-cover"
+                                        className={`h-full w-full object-cover ${service.imagePosition || "object-center"}`}
                                         loading="lazy"
                                     />
                                 </div>
@@ -96,7 +96,7 @@ const ServiceDetail = () => {
                         </div>
 
                         <div className="lg:col-span-6">
-                            <p className="text-green-700 font-semibold">Service overview</p>
+                        <p className="text-green-700 font-semibold">Service overview</p>
 
                             <h2 className="mt-3 text-4xl sm:text-5xl font-extrabold tracking-tight text-slate-900">
                                 Built for practical fleet work.
