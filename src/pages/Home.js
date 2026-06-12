@@ -22,6 +22,12 @@ const Home = () => {
     const [videoLoaded, setVideoLoaded] = useState(() => videos.map(() => false));
 
     useEffect(() => {
+        videoRefs.current.filter(Boolean).forEach((video) => {
+            video.load();
+        });
+    }, [videos.length]);
+
+    useEffect(() => {
         const els = videoRefs.current.filter(Boolean);
         if (!els.length) return;
 
@@ -39,7 +45,7 @@ const Home = () => {
                     }
                 });
             },
-            { threshold: 0.35 }
+            { threshold: 0.25 }
         );
 
         els.forEach((el) => io.observe(el));
@@ -74,8 +80,8 @@ const Home = () => {
             desc: "Annual DOT inspections, compliance-related repairs, safety corrections, and fleet readiness support.",
         },
         {
-            title: "Roadside Assistance",
-            desc: " 24/7 Emergency trailer repair, lighting issues, brake-related problems, temporary field fixes, and fleet support.",
+            title: "24/7 Roadside Assistance",
+            desc: "Emergency trailer repair, lighting issues, brake-related problems, temporary field fixes, and fleet support.",
         },
     ];
 
@@ -134,7 +140,6 @@ const Home = () => {
                     style={{ backgroundImage: "url(/images/Banners/South_Trailers_banner.png)" }}
                 />
 
-                {/* readability overlays */}
                 <div className="absolute inset-0 bg-gradient-to-r from-black/90 via-black/62 to-black/25" />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/65 via-transparent to-black/15" />
                 <div className="absolute left-0 top-0 h-full w-[62%] bg-black/20 blur-3xl" />
@@ -151,8 +156,8 @@ const Home = () => {
                             </h1>
 
                             <p className="mt-5 text-white/95 text-base sm:text-lg leading-relaxed max-w-[40rem] drop-shadow-[0_0.15rem_0.7rem_rgba(0,0,0,0.65)]">
-                                Mobile fleet service, DOT-related repairs, preventive maintenance, roadside assistance,
-                                and curtain-side manufacturing and repair for commercial fleets.
+                                Trailer repair, mobile fleet service, DOT-related repairs, preventive maintenance, 24/7
+                                roadside assistance, and curtain-side manufacturing and repair for commercial fleets.
                             </p>
 
                             <div className="mt-8 flex flex-col sm:flex-row gap-3">
@@ -183,7 +188,9 @@ const Home = () => {
                                     <span className="hidden sm:inline text-white/40">|</span>
                                     <span>Preventive maintenance</span>
                                     <span className="hidden sm:inline text-white/40">|</span>
-                                    <span>Roadside assistance</span>
+                                    <span>24/7 roadside assistance</span>
+                                    <span className="hidden sm:inline text-white/40">|</span>
+                                    <span>Curtain-side repair &amp; manufacturing</span>
                                 </div>
                             </div>
                         </div>
@@ -349,8 +356,8 @@ const Home = () => {
                                 Work, captured.
                             </h2>
                             <p className="mt-3 text-slate-600 text-base sm:text-lg">
-                                Short clips from installs and shop work. More service photos will be added as fleet
-                                repair and mobile work are documented.
+                                A look at the repair, maintenance, fabrication, and field service work performed by our
+                                team.
                             </p>
                         </div>
 
@@ -386,7 +393,7 @@ const Home = () => {
                                             muted
                                             playsInline
                                             loop
-                                            preload="metadata"
+                                            preload="auto"
                                             autoPlay
                                             controls
                                             onLoadedData={() =>

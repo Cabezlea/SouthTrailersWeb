@@ -9,16 +9,16 @@ const Services = () => {
 
     const serviceHighlights = [
         {
-            title: "Recurring fleet support",
-            desc: "PM schedules, DOT cycles, mobile visits, and preferred vendor relationships.",
+            title: "Fleet service support",
+            desc: "Trailer repair, mobile work, in-shop service, DOT/PM support, roadside response, and side-curtain systems.",
         },
         {
             title: "Mobile + in-shop",
             desc: "Service at your yard when speed matters, or scheduled shop work when the job requires it.",
         },
         {
-            title: "Compliance-driven repair",
-            desc: "DOT findings often become repair work. We handle both the inspection path and the fix.",
+            title: "Inspection-driven repair",
+            desc: "DOT and PM services help identify repair needs and keep trailers ready for operation.",
         },
     ];
 
@@ -108,64 +108,70 @@ const Services = () => {
 
                 <div className={`${PAGE_CONTAINER} relative py-16`}>
                     <div className="max-w-3xl">
-                        <p className="text-green-700 font-semibold">Primary service lanes</p>
+                        <p className="text-green-700 font-semibold">Service categories</p>
 
                         <h2 className="mt-3 text-4xl sm:text-5xl font-extrabold tracking-tight text-slate-900">
-                            Clear services for how fleets actually operate.
+                            Trailer services for how fleets actually operate.
                         </h2>
 
                         <p className="mt-4 text-slate-600 text-base sm:text-lg leading-relaxed">
-                            Trailer Repair & Fleet Maintenance is the umbrella. The service pages explain how the work is delivered:
-                            mobile, in-shop, compliance programs, roadside, and curtain-side specialty work.
+                            South Trailers supports fleets through mobile service, in-shop repair, DOT and PM inspections,
+                            roadside assistance, trailer maintenance, and side-curtain manufacturing and repair.
                         </p>
                     </div>
 
                     {/* All service cards aligned */}
                     <div className="mt-10 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
-                        {services.map((service, index) => (
-                            <Link
-                                key={service.slug}
-                                to={`/services/${service.slug}`}
-                                className="group h-full rounded-3xl border border-slate-200 bg-white/85 backdrop-blur shadow-sm overflow-hidden hover:-translate-y-1 hover:shadow-md transition"
-                            >
-                                <div className="aspect-[16/9] bg-slate-100 overflow-hidden">
-                                    <img
-                                        src={safeUrl(service.image)}
-                                        alt={service.title}
-                                        className={`h-full w-full object-cover ${service.imagePosition || "object-center"} transition duration-500 group-hover:scale-[1.03]`}
-                                        loading="lazy"
-                                    />
-                                </div>
+                        {services.map((service, index) => {
+                            const cardImage = service.cardImage || service.image;
+                            const cardImagePosition =
+                                service.cardImagePosition || service.imagePosition || "object-center";
 
-                                <div className="p-6 flex flex-col min-h-[18rem]">
-                                    <div className="flex items-center justify-between gap-4">
-                                    <div className="h-10 w-10 rounded-xl bg-green-100 text-green-700 flex items-center justify-center font-extrabold">
-                                            {String(index + 1).padStart(2, "0")}
-                                        </div>
-
-                                        <span className="text-slate-400 group-hover:text-green-600 transition text-2xl">
-                                            →
-                                        </span>
+                            return (
+                                <Link
+                                    key={service.slug}
+                                    to={`/services/${service.slug}`}
+                                    className="group h-full rounded-3xl border border-slate-200 bg-white/85 backdrop-blur shadow-sm overflow-hidden hover:-translate-y-1 hover:shadow-md transition"
+                                >
+                                    <div className="aspect-[16/9] bg-slate-100 overflow-hidden">
+                                        <img
+                                            src={safeUrl(cardImage)}
+                                            alt={service.title}
+                                            className={`h-full w-full object-cover ${cardImagePosition} transition duration-500 group-hover:scale-[1.03]`}
+                                            loading="lazy"
+                                        />
                                     </div>
 
-                                    <p className="mt-5 text-xs font-bold tracking-[0.18em] uppercase text-green-700">
-                                        {service.kicker}
-                                    </p>
+                                    <div className="p-6 flex flex-col min-h-[18rem]">
+                                        <div className="flex items-center justify-between gap-4">
+                                            <div className="h-10 w-10 rounded-xl bg-green-100 text-green-700 flex items-center justify-center font-extrabold">
+                                                {String(index + 1).padStart(2, "0")}
+                                            </div>
 
-                                    <h3 className="mt-2 text-xl font-extrabold text-slate-900 leading-tight">
-                                        {service.title}
-                                    </h3>
+                                            <span className="text-slate-400 group-hover:text-green-600 transition text-2xl">
+                                                →
+                                            </span>
+                                        </div>
 
-                                    <p className="mt-3 text-sm text-slate-600 leading-relaxed">
-                                        {service.short}
-                                    </p>
+                                        <p className="mt-5 text-xs font-bold tracking-[0.18em] uppercase text-green-700">
+                                            {service.kicker}
+                                        </p>
 
-                                    <p className="mt-auto pt-5 text-sm font-semibold text-green-700">
-                                        View service
-                                    </p>
-                                </div>
-                            </Link>
-                        ))}
+                                        <h3 className="mt-2 text-xl font-extrabold text-slate-900 leading-tight">
+                                            {service.title}
+                                        </h3>
+
+                                        <p className="mt-3 text-sm text-slate-600 leading-relaxed">
+                                            {service.short}
+                                        </p>
+
+                                        <p className="mt-auto pt-5 text-sm font-semibold text-green-700">
+                                            View service
+                                        </p>
+                                    </div>
+                                </Link>
+                            );
+                        })}
                     </div>
                 </div>
             </section>
@@ -181,29 +187,30 @@ const Services = () => {
                 <div className={`${PAGE_CONTAINER} relative py-16`}>
                     <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
                         <div className="lg:col-span-5">
-                            <p className="text-green-400 font-semibold">More than one-off repair</p>
+                            <p className="text-green-400 font-semibold">Fleet service structure</p>
 
                             <h2 className="mt-3 text-4xl sm:text-5xl font-extrabold tracking-tight text-white">
-                                Built for recurring fleet relationships.
+                                Built for recurring fleet support.
                             </h2>
 
                             <p className="mt-4 text-slate-300 text-base sm:text-lg leading-relaxed">
-                                The service model is designed to move from single repairs into structured maintenance support.
+                                South Trailers supports fleets through one-time repairs, scheduled maintenance,
+                                inspection cycles, emergency response, and recurring service programs.
                             </p>
                         </div>
 
                         <div className="lg:col-span-7">
                             <div className="rounded-3xl border border-white/10 bg-white/[0.06] p-6 sm:p-8 backdrop-blur">
                                 <p className="text-slate-300 text-lg leading-relaxed">
-                                    DOT findings, PM inspections, roadside calls, and mobile repairs all point to the same goal:
-                                    a consistent fleet maintenance relationship. South Trailers is positioned as a service partner,
-                                    not just a vendor called after equipment fails.
+                                    DOT findings, PM inspections, roadside calls, mobile service, in-shop repairs,
+                                    and curtain-side work all support the same operational goal: keeping fleet equipment
+                                    safe, compliant, and available for use.
                                 </p>
 
                                 <div className="mt-7 grid grid-cols-1 sm:grid-cols-2 gap-4">
                                     {[
                                         {
-                                            title: "Annual DOT cycles",
+                                            title: "DOT inspection cycles",
                                             desc: "Inspection and repair support tied to compliance readiness.",
                                         },
                                         {
@@ -211,12 +218,12 @@ const Services = () => {
                                             desc: "Preventive checks to reduce surprise breakdowns.",
                                         },
                                         {
-                                            title: "Mobile service inspections",
-                                            desc: "Scheduled on-site fleet visits for yards and facilities.",
+                                            title: "Mobile service visits",
+                                            desc: "Scheduled on-site fleet service for yards and facilities.",
                                         },
                                         {
-                                            title: "Preferred vendor support",
-                                            desc: "A long-term service relationship with better response.",
+                                            title: "Roadside support",
+                                            desc: "Emergency response when trailer issues interrupt operations.",
                                         },
                                     ].map((item) => (
                                         <div
@@ -236,7 +243,7 @@ const Services = () => {
                                         to="/contact"
                                         className="inline-flex justify-center items-center px-6 py-3 rounded-xl bg-green-600 text-white font-semibold hover:bg-green-700 transition"
                                     >
-                                        Request Fleet Program
+                                        Request Fleet Service
                                     </Link>
 
                                     <a
@@ -252,7 +259,7 @@ const Services = () => {
                 </div>
             </section>
 
-            {/* ================= CURTAIN-SIDE REMINDER ================= */}
+            {/* ================= CURTAIN-SIDE SECTION ================= */}
             <section className="relative overflow-hidden bg-white">
                 <div className={`${PAGE_CONTAINER} py-16`}>
                     <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
@@ -270,15 +277,15 @@ const Services = () => {
                         </div>
 
                         <div className="lg:col-span-6">
-                            <p className="text-green-700 font-semibold">Curtain-side specialty</p>
+                            <p className="text-green-700 font-semibold">Side-curtain systems</p>
 
                             <h2 className="mt-3 text-4xl sm:text-5xl font-extrabold tracking-tight text-slate-900">
-                                Curtain-side work stays part of the operation.
+                                Curtain-side manufacturing, repair, and hardware support.
                             </h2>
 
                             <p className="mt-4 text-slate-600 text-base sm:text-lg leading-relaxed">
-                                South Trailers is now positioned around trailer repair and fleet maintenance, but curtain-side
-                                manufacturing, repair, installation, rollers, tracks, buckles, straps, and hardware remain a key specialty.
+                                South Trailers handles curtain-side manufacturing, repair, installation, rollers,
+                                tracks, buckles, straps, rails, and related hardware for commercial trailer equipment.
                             </p>
 
                             <div className="mt-7 flex flex-col sm:flex-row gap-3">
@@ -290,10 +297,10 @@ const Services = () => {
                                 </Link>
 
                                 <Link
-                                    to="/products"
+                                    to="/contact"
                                     className="inline-flex justify-center items-center px-6 py-3 rounded-xl bg-white text-slate-900 font-semibold border border-slate-200 hover:bg-slate-50 transition shadow-sm"
                                 >
-                                    View Products
+                                    Request Curtain Service
                                 </Link>
                             </div>
                         </div>

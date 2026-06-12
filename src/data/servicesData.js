@@ -4,19 +4,19 @@ export const services = [
     {
         slug: "trailer-repair-fleet-maintenance",
         navLabel: "Trailer Repair & Fleet Maintenance",
-        kicker: "Core Service",
+        kicker: "Fleet Repair",
         title: "Trailer Repair & Fleet Maintenance",
         short:
-            "The main service lane: repair, maintenance, and recurring support for commercial trailers and fleets.",
+            "Trailer repair, maintenance, structural work, welding, and recurring support for commercial trailers and fleets.",
         hero:
-            "South Trailers supports commercial fleets with trailer repair, preventive maintenance, compliance-related repairs, and recurring service programs built around uptime.",
+            "South Trailers supports commercial fleets with trailer repair, preventive maintenance, compliance-related repairs, structural work, welding, and recurring service programs built around uptime.",
         image: "/images/Services/S1.jpeg",
         imagePosition: "object-[center_45%]",
         sections: [
             {
                 title: "Built for fleet uptime",
                 body:
-                    "This is the umbrella service. Mobile work, in-shop repairs, DOT support, PM schedules, and roadside assistance all sit under the larger goal of keeping trailers safe, compliant, and moving.",
+                    "This service covers the repair and maintenance work commercial fleets need to keep trailers safe, compliant, and moving.",
             },
             {
                 title: "Common repair areas",
@@ -26,14 +26,14 @@ export const services = [
             {
                 title: "Recurring fleet support",
                 body:
-                    "The long-term value is not just fixing one trailer. The goal is to support recurring fleet maintenance, inspection cycles, and preferred vendor relationships.",
+                    "Customers can use this service for one repair, multiple units, preventive maintenance, inspection cycles, or ongoing fleet support.",
             },
         ],
         bullets: [
             "Trailer structural repairs",
+            "Welding and heavy-duty repair work",
             "Brake, air, suspension, lighting, and landing gear work",
             "Preventive maintenance support",
-            "Compliance-related repairs",
             "Recurring fleet service programs",
         ],
         cta: "Schedule Fleet Service",
@@ -46,7 +46,7 @@ export const services = [
         short:
             "On-site trailer repair and maintenance at fleet yards, warehouses, terminals, and customer facilities.",
         hero:
-            "Mobile fleet service is built for operations that cannot afford unnecessary downtime. We come to the fleet location and service trailers where they operate.",
+            "Mobile fleet service is built for operations that need trailer service directly at the fleet location.",
         image: "/images/Services/S2.jpeg",
         imagePosition: "object-[center_50%]",
         sections: [
@@ -83,24 +83,26 @@ export const services = [
         short:
             "Scheduled trailer service at our location for jobs that need more time, tools, or controlled working conditions.",
         hero:
-            "Not every job belongs in the field. In-shop service gives customers a scheduled option for trailers that need longer repair windows or controlled working conditions.",
-        image: "/images/Services/S3.jpeg",
-        imagePosition: "object-[center_55%]",
+            "In-shop service gives customers a scheduled option for trailers that need longer repair windows, detailed work, or controlled working conditions.",
+        image: "/images/Services/S7.JPG",
+        imagePosition: "object-[center_50%]",
+        cardImage: "/images/Services/S6.JPG",
+        cardImagePosition: "object-[center_50%]",
         sections: [
             {
-                title: "For repairs that need more than a field visit",
+                title: "Scheduled trailer service",
                 body:
-                    "Some jobs are better handled when the trailer is brought in. This can include longer repair work, structural repairs, detailed service, or jobs that require a more controlled setup.",
+                    "Customers can bring trailers to our location for scheduled repair, inspection, maintenance, and heavier service work.",
             },
             {
-                title: "Same service standard",
+                title: "Controlled repair environment",
                 body:
-                    "In-shop does not mean a different business model. It is still fleet-focused repair and maintenance. The only difference is where the work is done.",
+                    "In-shop service is useful for jobs that need more time, tools, space, welding, structural work, or a controlled setup.",
             },
             {
-                title: "Scheduled drop-off",
+                title: "Fleet-focused execution",
                 body:
-                    "Customers can schedule service and bring the unit in when mobile service is not the best option for the job.",
+                    "The goal is the same as our mobile service: clear repair work, practical timelines, and support for keeping fleet equipment operational.",
             },
         ],
         bullets: [
@@ -120,7 +122,7 @@ export const services = [
         short:
             "DOT compliance support and preventive maintenance inspections for recurring fleet readiness.",
         hero:
-            "DOT and PM are different, but they belong together as inspection-driven fleet services. DOT focuses on compliance. PM focuses on prevention.",
+            "DOT and PM services help fleets identify safety, compliance, and maintenance issues before they create downtime.",
         image: "/images/Services/S5.JPG",
         imagePosition: "object-[center_50%]",
         sections: [
@@ -135,9 +137,9 @@ export const services = [
                     "PM is not the same as a DOT annual inspection. PM is a preventive check designed to catch issues early before they create downtime or more expensive repairs.",
             },
             {
-                title: "Built for recurring fleet cycles",
+                title: "Fleet inspection cycles",
                 body:
-                    "DOT and PM inspections are important because they create structure: annual DOT cycles, quarterly PM schedules, recurring mobile visits, and preferred vendor relationships.",
+                    "DOT and PM services can support annual DOT cycles, quarterly PM schedules, recurring mobile visits, and ongoing fleet readiness.",
             },
         ],
         bullets: [
@@ -172,9 +174,9 @@ export const services = [
                     "Roadside work can involve lighting problems, air or brake-related issues, suspension problems, trailer damage, or temporary operational fixes.",
             },
             {
-                title: "Relationship builder",
+                title: "Field repair support",
                 body:
-                    "Emergency response matters because reliability during breakdowns builds long-term fleet trust.",
+                    "Roadside assistance gives fleets a direct response option when trailer problems happen outside a normal shop schedule.",
             },
         ],
         bullets: [
@@ -189,12 +191,12 @@ export const services = [
     {
         slug: "curtain-side-services",
         navLabel: "Curtain-Side Services",
-        kicker: "Specialty Service",
+        kicker: "Side-Curtain Service",
         title: "Curtain-Side Manufacturing & Repair",
         short:
             "Curtain-side manufacturing, repair, installation, hardware, rollers, tracks, and related components.",
         hero:
-            "Curtain-side work remains a South Trailers specialty, but it now sits inside a broader trailer repair and fleet maintenance operation.",
+            "South Trailers provides curtain-side manufacturing, repair, installation, hardware service, rollers, tracks, buckles, straps, and related curtain-side components.",
         image: "/images/Banners/South_Trailers_banner.png",
         imagePosition: "object-center",
         sections: [
@@ -209,9 +211,9 @@ export const services = [
                     "Curtain-side work can include rollers, tracks, buckles, straps, hooks, rails, and related hardware.",
             },
             {
-                title: "Separate from DOT unless safety is affected",
+                title: "Service matched to the job",
                 body:
-                    "Curtain-side service is not automatically DOT work. It only becomes compliance-related when the issue affects road safety, securement, visibility, or required equipment.",
+                    "Curtain-side work can be handled through mobile service or scheduled service depending on the repair, installation, and hardware needs.",
             },
         ],
         bullets: [
