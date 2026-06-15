@@ -29,10 +29,10 @@ const Footer = () => {
                             </a>
 
                             <a
-                                href="mailto:Leandro.cabezas@southtrailers.com"
+                                href="mailto:sales@southtrailers.com"
                                 className="block hover:text-white transition break-all"
                             >
-                                Leandro.cabezas@southtrailers.com
+                                sales@southtrailers.com
                             </a>
                         </div>
                     </div>

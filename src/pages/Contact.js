@@ -32,8 +32,8 @@ const Contact = () => {
         () => ({
             phoneDisplay: "(936) 777-9615",
             phoneHref: "tel:+19367779615",
-            emailDisplay: "Leandro.cabezas@southtrailers.com",
-            emailHref: "mailto:Leandro.cabezas@southtrailers.com",
+            emailDisplay: "sales@southtrailers.com",
+            emailHref: "mailto:sales@southtrailers.com",
             baseTitle: "Houston-based, serving fleets across Texas",
             baseLine: "Mobile service available 24/7 • in-shop repair subject to shop hours • inbound trailers welcome",
             hours: [
@@ -135,8 +135,9 @@ const Contact = () => {
     }, [form]);
 
     const onSubmit = useCallback(
-        (ev) => {
+        async (ev) => {
             ev.preventDefault();
+
             const e = validate();
             setErrors(e);
 
@@ -145,9 +146,37 @@ const Contact = () => {
                 return;
             }
 
-            showToast("Saved. Delivery will be wired at the end.");
+            try {
+                const res = await fetch("/send.php", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify(form),
+                });
+
+                const data = await res.json();
+
+                if (!res.ok || !data.ok) {
+                    throw new Error(data.message || "Email failed to send.");
+                }
+
+                showToast("Message sent. We’ll follow up shortly.");
+
+                setForm({
+                    name: "",
+                    company: "",
+                    email: "",
+                    phone: "",
+                    service: "Trailer Repair & Fleet Maintenance",
+                    urgency: "Standard",
+                    message: "",
+                });
+            } catch (err) {
+                showToast("Message failed to send. Please call or email us directly.");
+            }
         },
-        [validate, showToast]
+        [form, validate, showToast]
     );
 
     const intentBtn = (key) =>
@@ -310,7 +339,7 @@ const Contact = () => {
                                 </div>
 
                                 <div className="mt-9">
-                                    <p className="text-sm font-extrabold text-slate-900">Hours</p>
+                                    <p className="text-sm font-extrabold text-slate-900">In-Shop Hours</p>
                                     <div className="mt-3 rounded-xl border border-slate-200 bg-white overflow-hidden">
                                         <div className="divide-y divide-slate-200">
                                             {contact.hours.map((h) => (
