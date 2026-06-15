@@ -52,7 +52,6 @@ const Home = () => {
         return () => io.disconnect();
     }, [videos.length]);
 
-
     const servicePillars = [
         {
             title: "Trailer Repair & Fleet Maintenance",
@@ -121,7 +120,7 @@ const Home = () => {
     return (
         <main>
             {/* HERO */}
-            <section className="relative h-[85vh] min-h-[35rem] w-full overflow-hidden">
+            <section className="relative min-h-[100svh] sm:h-[85vh] sm:min-h-[35rem] w-full overflow-hidden">
                 <div
                     className="absolute inset-0 bg-center bg-cover"
                     style={{ backgroundImage: "url(/images/Banners/South_Trailers_banner.png)" }}
@@ -131,14 +130,14 @@ const Home = () => {
                 <div className="absolute inset-0 bg-gradient-to-t from-black/65 via-transparent to-black/15" />
                 <div className="absolute left-0 top-0 h-full w-[62%] bg-black/20 blur-3xl" />
 
-                <div className="relative h-full pt-20">
-                    <div className={`${NAV_CONTAINER} h-full flex items-center`}>
+                <div className="relative min-h-[100svh] sm:min-h-0 sm:h-full pt-20 pb-24 sm:pb-0">
+                    <div className={`${NAV_CONTAINER} min-h-[calc(100svh-5rem)] sm:h-full flex items-center`}>
                         <div className="text-left w-full max-w-[42rem]">
                             <p className="mb-4 text-sm sm:text-base font-semibold text-green-300">
                                 Houston-based fleet service with mobile support across Texas
                             </p>
 
-                            <h1 className="text-white font-extrabold leading-[1.03] tracking-tight text-4xl sm:text-5xl lg:text-6xl xl:text-[3.55rem] drop-shadow-[0_0.2rem_1rem_rgba(0,0,0,0.55)]">
+                            <h1 className="text-white font-extrabold leading-[1.03] tracking-tight text-[clamp(2.45rem,10vw,3.55rem)] sm:text-5xl lg:text-6xl xl:text-[3.55rem] drop-shadow-[0_0.2rem_1rem_rgba(0,0,0,0.55)]">
                                 Heavy-Duty Trailer Repair & Fleet Maintenance
                             </h1>
 
@@ -147,17 +146,17 @@ const Home = () => {
                                 roadside assistance, and curtain-side manufacturing and repair for commercial fleets.
                             </p>
 
-                            <div className="mt-8 flex flex-col sm:flex-row gap-3">
+                            <div className="mt-8 flex flex-row flex-wrap gap-3">
                                 <Link
                                     to="/contact"
-                                    className="inline-flex justify-center items-center px-6 py-3 rounded-md bg-green-600 text-white font-semibold hover:bg-green-700 transition shadow-lg shadow-green-900/20"
+                                    className="inline-flex justify-center items-center px-5 sm:px-6 py-3 rounded-md bg-green-600 text-white text-sm sm:text-base font-semibold hover:bg-green-700 transition shadow-lg shadow-green-900/20"
                                 >
                                     Request Fleet Service
                                 </Link>
 
                                 <a
                                     href="tel:+19367779615"
-                                    className="inline-flex justify-center items-center px-6 py-3 rounded-md border border-white/70 text-white font-semibold hover:border-white hover:bg-white/10 transition"
+                                    className="inline-flex justify-center items-center px-5 sm:px-6 py-3 rounded-md border border-white/70 text-white text-sm sm:text-base font-semibold hover:border-white hover:bg-white/10 transition"
                                 >
                                     Call
                                 </a>
@@ -167,17 +166,18 @@ const Home = () => {
 
                     <div className="absolute bottom-0 left-0 right-0">
                         <div className="bg-black/45 backdrop-blur-sm border-t border-white/10">
-                            <div className={`${NAV_CONTAINER} py-4`}>
-                                <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-6 text-white/90 text-sm font-medium">
-                                    <span>Mobile fleet service</span>
-                                    <span className="hidden sm:inline text-white/40">|</span>
-                                    <span>DOT support</span>
-                                    <span className="hidden sm:inline text-white/40">|</span>
-                                    <span>Preventive maintenance</span>
-                                    <span className="hidden sm:inline text-white/40">|</span>
-                                    <span>24/7 roadside assistance</span>
-                                    <span className="hidden sm:inline text-white/40">|</span>
-                                    <span>Curtain-side repair &amp; manufacturing</span>
+                            <div className={`${NAV_CONTAINER} py-3 sm:py-4`}>
+                                <div
+                                    className="flex flex-row items-center gap-4 sm:gap-6 overflow-x-auto whitespace-nowrap text-white/90 text-sm font-medium [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+                                    <span className="shrink-0">Mobile fleet service</span>
+                                    <span className="shrink-0 text-white/40">|</span>
+                                    <span className="shrink-0">DOT support</span>
+                                    <span className="shrink-0 text-white/40">|</span>
+                                    <span className="shrink-0">Preventive maintenance</span>
+                                    <span className="shrink-0 text-white/40">|</span>
+                                    <span className="shrink-0">24/7 roadside assistance</span>
+                                    <span className="shrink-0 text-white/40">|</span>
+                                    <span className="shrink-0">Curtain-side repair &amp; manufacturing</span>
                                 </div>
                             </div>
                         </div>

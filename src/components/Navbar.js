@@ -22,6 +22,13 @@ const Navbar = () => {
         setMenuOpen(false);
     }, [pathname]);
 
+    useEffect(() => {
+        document.body.style.overflow = menuOpen ? "hidden" : "";
+        return () => {
+            document.body.style.overflow = "";
+        };
+    }, [menuOpen]);
+
     const NAV_TEXT = "text-[16px] md:text-[15px]";
     const DROPDOWN_WIDE = "w-[350px]";
     const DROPDOWN_ITEM = "px-4 py-3";
@@ -94,45 +101,22 @@ const Navbar = () => {
 
                         <div className={dropdownWrap}>
                             <Panel widthClass={DROPDOWN_WIDE}>
-                                <Link
-                                    to="/services/trailer-repair-fleet-maintenance"
-                                    className={dropdownItem}
-                                >
+                                <Link to="/services/trailer-repair-fleet-maintenance" className={dropdownItem}>
                                     Trailer Repair & Fleet Maintenance
                                 </Link>
-
-                                <Link
-                                    to="/services/mobile-fleet-service"
-                                    className={dropdownItem}
-                                >
+                                <Link to="/services/mobile-fleet-service" className={dropdownItem}>
                                     Mobile Fleet Service
                                 </Link>
-
-                                <Link
-                                    to="/services/in-shop-trailer-service"
-                                    className={dropdownItem}
-                                >
+                                <Link to="/services/in-shop-trailer-service" className={dropdownItem}>
                                     In-Shop Trailer Service
                                 </Link>
-
-                                <Link
-                                    to="/services/dot-pm-programs"
-                                    className={dropdownItem}
-                                >
+                                <Link to="/services/dot-pm-programs" className={dropdownItem}>
                                     DOT & PM Inspections
                                 </Link>
-
-                                <Link
-                                    to="/services/roadside-assistance"
-                                    className={dropdownItem}
-                                >
+                                <Link to="/services/roadside-assistance" className={dropdownItem}>
                                     Roadside Assistance
                                 </Link>
-
-                                <Link
-                                    to="/services/curtain-side-services"
-                                    className={dropdownItem}
-                                >
+                                <Link to="/services/curtain-side-services" className={dropdownItem}>
                                     Side-Curtain Repair & Manufacturing
                                 </Link>
                             </Panel>
@@ -146,74 +130,53 @@ const Navbar = () => {
 
                 <button
                     className={[
-                        "md:hidden inline-flex items-center justify-center w-11 h-11 rounded-lg",
+                        "md:hidden inline-flex items-center justify-center w-11 h-11 rounded-xl transition",
                         isSolid
-                            ? "border border-gray-200 text-gray-900"
-                            : "border border-white/30 text-white",
+                            ? "border border-gray-200 text-gray-900 bg-white/80"
+                            : "border border-white/40 text-white bg-white/10",
                     ].join(" ")}
                     onClick={() => setMenuOpen((v) => !v)}
                     aria-label="Toggle menu"
                 >
-                    <span className="text-lg">{menuOpen ? "✕" : "☰"}</span>
+                    <span className="text-xl leading-none">{menuOpen ? "×" : "☰"}</span>
                 </button>
             </div>
 
             {menuOpen && (
-                <div className="md:hidden border-t border-white/10 bg-white">
-                    <div className="px-6 py-6 flex flex-col gap-4">
-                        <NavLink to="/" className="text-gray-900 font-semibold text-[16px]" end>
+                <div className="md:hidden fixed left-0 right-0 top-20 bottom-0 bg-white z-40 overflow-y-auto">
+                    <div className="px-6 py-7 flex flex-col gap-6">
+                        <NavLink to="/" className="text-slate-900 font-extrabold text-2xl" end>
                             Home
                         </NavLink>
 
-                        <NavLink to="/services" className="text-gray-900 font-semibold text-[16px]">
-                            Services
-                        </NavLink>
+                        <div>
+                            <NavLink to="/services" className="text-slate-900 font-extrabold text-2xl">
+                                Services
+                            </NavLink>
 
-                        <div className="pl-3 flex flex-col gap-3 text-sm">
-                            <Link
-                                to="/services/trailer-repair-fleet-maintenance"
-                                className="text-gray-700 hover:text-green-700"
-                            >
-                                Trailer Repair & Fleet Maintenance
-                            </Link>
-
-                            <Link
-                                to="/services/mobile-fleet-service"
-                                className="text-gray-700 hover:text-green-700"
-                            >
-                                Mobile Fleet Service
-                            </Link>
-
-                            <Link
-                                to="/services/in-shop-trailer-service"
-                                className="text-gray-700 hover:text-green-700"
-                            >
-                                In-Shop Trailer Service
-                            </Link>
-
-                            <Link
-                                to="/services/dot-pm-programs"
-                                className="text-gray-700 hover:text-green-700"
-                            >
-                                DOT & PM Inspections
-                            </Link>
-
-                            <Link
-                                to="/services/roadside-assistance"
-                                className="text-gray-700 hover:text-green-700"
-                            >
-                                Roadside Assistance
-                            </Link>
-
-                            <Link
-                                to="/services/curtain-side-services"
-                                className="text-gray-700 hover:text-green-700"
-                            >
-                                Side-Curtain Repair & Manufacturing
-                            </Link>
+                            <div className="mt-5 pl-4 border-l border-slate-200 flex flex-col gap-4">
+                                <Link to="/services/trailer-repair-fleet-maintenance" className="text-slate-700 text-lg">
+                                    Trailer Repair & Fleet Maintenance
+                                </Link>
+                                <Link to="/services/mobile-fleet-service" className="text-slate-700 text-lg">
+                                    Mobile Fleet Service
+                                </Link>
+                                <Link to="/services/in-shop-trailer-service" className="text-slate-700 text-lg">
+                                    In-Shop Trailer Service
+                                </Link>
+                                <Link to="/services/dot-pm-programs" className="text-slate-700 text-lg">
+                                    DOT & PM Inspections
+                                </Link>
+                                <Link to="/services/roadside-assistance" className="text-slate-700 text-lg">
+                                    Roadside Assistance
+                                </Link>
+                                <Link to="/services/curtain-side-services" className="text-slate-700 text-lg">
+                                    Side-Curtain Repair & Manufacturing
+                                </Link>
+                            </div>
                         </div>
 
-                        <NavLink to="/contact" className="text-gray-900 font-semibold text-[16px]">
+                        <NavLink to="/contact" className="text-slate-900 font-extrabold text-2xl">
                             Contact
                         </NavLink>
                     </div>
