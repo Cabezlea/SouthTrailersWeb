@@ -52,19 +52,6 @@ const Home = () => {
         return () => io.disconnect();
     }, [videos.length]);
 
-    const clientLogos = useMemo(
-        () => [
-            { name: "Coca-Cola", src: "/images/Clients/cocaCola-logo.png" },
-            { name: "Brazos", src: "/images/Clients/Brazos-logo.webp" },
-            { name: "Coleman", src: "/images/Clients/coleman-logo.jpeg" },
-            { name: "Melaminetex", src: "/images/Clients/melaminetex-logo.png" },
-            { name: "Sunbelt", src: "/images/Clients/sunbelt-logo.png" },
-            { name: "Woodgrain", src: "/images/Clients/woodgrain-logo-1.png" },
-            { name: "Client 7", src: "" },
-            { name: "Client 8", src: "" },
-        ],
-        []
-    );
 
     const servicePillars = [
         {
@@ -408,92 +395,6 @@ const Home = () => {
                                 </div>
                             </div>
                         ))}
-                    </div>
-                </div>
-            </section>
-
-            {/* TRUSTED BY */}
-            <section className="relative overflow-hidden bg-white">
-                <div className="pointer-events-none absolute inset-0">
-                    <div className="absolute -top-40 right-[-160px] h-[32rem] w-[32rem] rounded-full bg-green-500/10 blur-3xl" />
-                    <div className="absolute -bottom-48 left-[-140px] h-[32rem] w-[32rem] rounded-full bg-slate-900/10 blur-3xl" />
-                </div>
-
-                <div className={`${PAGE_CONTAINER} relative py-16`}>
-                    <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6">
-                        <div>
-                            <p className="text-green-700 font-semibold">Commercial credibility</p>
-                            <h2 className="mt-2 text-4xl sm:text-5xl font-extrabold tracking-tight text-slate-900">
-                                Trusted by
-                            </h2>
-                            <p className="mt-3 text-slate-600 text-base sm:text-lg">
-                                From regional operators to multinational fleets.
-                            </p>
-                        </div>
-
-                        <Link
-                            to="/contact"
-                            className="inline-flex justify-center items-center px-6 py-3 rounded-xl bg-white/70 backdrop-blur border border-slate-200 text-slate-900 font-semibold hover:bg-white transition shadow-sm"
-                        >
-                            Request Service
-                        </Link>
-                    </div>
-
-                    <div className="mt-10 grid grid-cols-2 md:grid-cols-3 gap-10 md:gap-12 place-items-center">
-                        {clientLogos.map((c) => {
-                            const hasSrc = Boolean(c.src);
-                            return (
-                                <div key={c.name} className="flex flex-col items-center">
-                                    <div
-                                        className={[
-                                            "h-36 w-36 sm:h-40 sm:w-40 rounded-full",
-                                            "bg-white/80 backdrop-blur border border-slate-200 shadow-sm",
-                                            "flex items-center justify-center overflow-hidden",
-                                            "transition transform hover:-translate-y-1 hover:shadow-lg",
-                                            hasSrc ? "" : "border-dashed",
-                                        ].join(" ")}
-                                    >
-                                        {hasSrc ? (
-                                            <img
-                                                src={safeUrl(c.src)}
-                                                alt={c.name}
-                                                className="h-[68%] w-[68%] object-contain"
-                                                draggable={false}
-                                            />
-                                        ) : (
-                                            <span className="text-slate-400 text-sm font-semibold">{c.name}</span>
-                                        )}
-                                    </div>
-                                </div>
-                            );
-                        })}
-                    </div>
-
-                    <div className="mt-14 rounded-2xl border border-slate-200 bg-white/70 backdrop-blur shadow-sm p-6 flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
-                        <div>
-                            <p className="text-xl font-extrabold text-slate-900">
-                                Looking for recurring fleet maintenance support?
-                            </p>
-                            <p className="mt-1 text-slate-600">
-                                Ask about PM schedules, recurring DOT cycles, mobile service programs, and preferred
-                                vendor support.
-                            </p>
-                        </div>
-
-                        <div className="flex flex-col sm:flex-row gap-3">
-                            <a
-                                href="tel:+19367779615"
-                                className="inline-flex justify-center items-center px-6 py-3 rounded-xl bg-slate-900 text-white font-semibold hover:bg-slate-800 transition"
-                            >
-                                Call Now
-                            </a>
-                            <Link
-                                to="/contact"
-                                className="inline-flex justify-center items-center px-6 py-3 rounded-xl bg-green-600 text-white font-semibold hover:bg-green-700 transition"
-                            >
-                                Request Quote
-                            </Link>
-                        </div>
                     </div>
                 </div>
             </section>

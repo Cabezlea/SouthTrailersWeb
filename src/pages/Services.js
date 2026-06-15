@@ -1,4 +1,5 @@
 // src/pages/Services.js
+import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { services } from "../data/servicesData";
 
@@ -6,6 +7,23 @@ const Services = () => {
     const NAV_CONTAINER = "w-full px-5 sm:px-8 xl:px-14";
     const PAGE_CONTAINER = "max-w-7xl mx-auto px-5 sm:px-8 xl:px-14";
     const safeUrl = (p) => encodeURI(p);
+
+    useEffect(() => {
+        const imagePaths = services.flatMap((service) => [
+            service.image,
+            service.cardImage,
+        ]);
+
+        const uniqueImagePaths = [...new Set(imagePaths.filter(Boolean))];
+
+        uniqueImagePaths.forEach((path) => {
+            const link = document.createElement("link");
+            link.rel = "preload";
+            link.as = "image";
+            link.href = safeUrl(path);
+            document.head.appendChild(link);
+        });
+    }, []);
 
     const serviceHighlights = [
         {
@@ -36,6 +54,8 @@ const Services = () => {
                             alt=""
                             className="w-[58rem] max-w-none rotate-[-10deg] select-none"
                             draggable={false}
+                            loading="eager"
+                            fetchPriority="high"
                         />
                     </div>
 
@@ -96,12 +116,14 @@ const Services = () => {
                 <div className="pointer-events-none absolute inset-0">
                     <div className="absolute -top-40 left-1/2 h-[32rem] w-[32rem] -translate-x-1/2 rounded-full bg-green-500/10 blur-3xl" />
                     <div className="absolute -bottom-48 right-[-8rem] h-[32rem] w-[32rem] rounded-full bg-slate-900/10 blur-3xl" />
+
                     <div className="absolute inset-0 opacity-[0.03] flex items-center justify-center">
                         <img
                             src="/images/Banners/South_Trailers_CMYK.png"
                             alt=""
                             className="w-[60rem] max-w-none rotate-[-12deg] select-none"
                             draggable={false}
+                            loading="lazy"
                         />
                     </div>
                 </div>
@@ -138,7 +160,8 @@ const Services = () => {
                                             src={safeUrl(cardImage)}
                                             alt={service.title}
                                             className={`h-full w-full object-cover ${cardImagePosition} transition duration-500 group-hover:scale-[1.03]`}
-                                            loading="lazy"
+                                            loading={index < 3 ? "eager" : "lazy"}
+                                            fetchPriority={index < 3 ? "high" : "auto"}
                                         />
                                     </div>
 
