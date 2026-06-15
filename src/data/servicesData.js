@@ -84,9 +84,9 @@ export const services = [
             "Scheduled trailer service at our location for jobs that need more time, tools, or controlled working conditions.",
         hero:
             "In-shop service gives customers a scheduled option for trailers that need longer repair windows, detailed work, or controlled working conditions.",
-        image: "/images/Services/S7.JPG",
+        image: "/images/Services/S8.jpeg",
         imagePosition: "object-[center_50%]",
-        cardImage: "/images/Services/S6.JPG",
+        cardImage: "/images/Services/S8.jpeg",
         cardImagePosition: "object-[center_50%]",
         sections: [
             {
@@ -123,7 +123,7 @@ export const services = [
             "DOT compliance support and preventive maintenance inspections for recurring fleet readiness.",
         hero:
             "DOT and PM services help fleets identify safety, compliance, and maintenance issues before they create downtime.",
-        image: "/images/Services/S5.JPG",
+        image: "/images/Services/S9.jpeg",
         imagePosition: "object-[center_50%]",
         sections: [
             {
